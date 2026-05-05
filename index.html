@@ -73,9 +73,32 @@
         font-weight: 700;
       }
       .button:hover { background: var(--accent-dark); }
+      .button.secondary {
+        background: #111318;
+      }
+      .button.secondary:hover { background: #252a33; }
       .price {
         color: var(--muted);
         font-weight: 700;
+      }
+      .offer-strip {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+      }
+      .offer {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 16px;
+        background: #ffffff;
+      }
+      .offer h3 {
+        margin: 0 0 8px;
+        font-size: 18px;
+      }
+      .offer p {
+        margin: 0 0 12px;
+        color: var(--muted);
       }
       section {
         padding: 34px 0;
@@ -118,7 +141,7 @@
       }
       @media (max-width: 700px) {
         .wrap { padding-top: 32px; }
-        .grid { grid-template-columns: 1fr; }
+        .grid, .offer-strip { grid-template-columns: 1fr; }
         .sub { font-size: 18px; }
       }
     </style>
@@ -130,10 +153,32 @@
         <h1>Make OpenClaw, Codex, and Computer Use actually work on your Mac.</h1>
         <p class="sub">I fix the boring failures that make AI agents unusable: stale auth, broken model routing, token bloat, reused sessions, macOS permission gaps, and Computer Use refusing simple tasks.</p>
         <div class="cta-row">
-          <a class="button" href="https://buy.stripe.com/aFa14nbmIg9M3hDayn3sI0k">Book setup for $497</a>
-          <span class="price">One-time async setup. Evidence-backed delivery.</span>
+          <a class="button" href="https://buy.stripe.com/28EfZheyU2iW4lH35V3sI0q">Get diagnostic for $99</a>
+          <a class="button secondary" href="https://buy.stripe.com/aFa14nbmIg9M3hDayn3sI0k">Book setup for $497</a>
+          <span class="price">Start with triage or buy the full async setup.</span>
         </div>
       </header>
+
+      <section>
+        <h2>Pick The Right Entry Point</h2>
+        <div class="offer-strip">
+          <div class="offer">
+            <h3>$99 Diagnostic</h3>
+            <p>Send your top failures and get a root-cause triage note with exact next steps.</p>
+            <a class="button" href="https://buy.stripe.com/28EfZheyU2iW4lH35V3sI0q">Buy diagnostic</a>
+          </div>
+          <div class="offer">
+            <h3>$497 Setup</h3>
+            <p>I configure routing, sessions, Computer Use, smoke tests, and a runbook.</p>
+            <a class="button secondary" href="https://buy.stripe.com/aFa14nbmIg9M3hDayn3sI0k">Book setup</a>
+          </div>
+          <div class="offer">
+            <h3>$250/mo Maintenance</h3>
+            <p>Ongoing setup upkeep for founders who keep shipping with local agents.</p>
+            <a class="button secondary" href="https://buy.stripe.com/bJe3cv0I40aO7xTeOD3sI0l">Add maintenance</a>
+          </div>
+        </div>
+      </section>
 
       <section>
         <h2>What You Get</h2>
@@ -172,10 +217,11 @@
 
       <section>
         <h2>Start</h2>
-        <p>Book the setup. I will follow up through the email attached to your Stripe checkout, then ask for your Mac version, current agent stack, and top three failure examples.</p>
+        <p>Buy the diagnostic or book the setup. I will follow up through the email attached to your Stripe checkout, then ask for your Mac version, current agent stack, and top three failure examples.</p>
         <div class="cta-row">
-          <a class="button" href="https://buy.stripe.com/aFa14nbmIg9M3hDayn3sI0k">Book setup for $497</a>
-          <a class="button" href="https://buy.stripe.com/bJe3cv0I40aO7xTeOD3sI0l">Add maintenance for $250/mo</a>
+          <a class="button" href="https://buy.stripe.com/28EfZheyU2iW4lH35V3sI0q">Get diagnostic for $99</a>
+          <a class="button secondary" href="https://buy.stripe.com/aFa14nbmIg9M3hDayn3sI0k">Book setup for $497</a>
+          <a class="button secondary" href="https://buy.stripe.com/bJe3cv0I40aO7xTeOD3sI0l">Add maintenance for $250/mo</a>
         </div>
       </section>
 
