@@ -5,6 +5,9 @@ Done-for-you setup for founders and developers whose Mac AI-agent stack is not u
 Public page:
 https://igorganapolsky.github.io/openclaw-mac-ai-workstation-setup/
 
+Quick read:
+https://igorganapolsky.github.io/openclaw-mac-ai-workstation-setup/quick-read.html
+
 ## What It Fixes
 
 - OpenClaw/Codex refusing simple actions.
@@ -14,6 +17,9 @@ https://igorganapolsky.github.io/openclaw-mac-ai-workstation-setup/
 - TUI sessions reused across unrelated project directories.
 
 ## Buy
+
+- Quick read: $19  
+  https://buy.stripe.com/aFaeVd3Ug3n05pLfSH3sI0u
 
 - Same-day triage: $49  
   https://buy.stripe.com/28E7sL3Ug3n0bO935V3sI0r
