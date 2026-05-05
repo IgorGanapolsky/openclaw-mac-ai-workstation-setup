@@ -47,3 +47,12 @@ Created: 2026-05-05 12:30 EDT
 - Amount: $99 one-time
 - Link ID: `plink_1TTnioGGBpd520QYCAEW2mlE`
 - URL: https://buy.stripe.com/28EfZheyU2iW4lH35V3sI0q
+
+## Same-Day Triage Price
+
+- Created: 2026-05-05
+- Product ID: `prod_USjBuXEfI9yNTr`
+- Price ID: `price_1TTo0wGGBpd520QYEW2QkWDE`
+- Amount: $49 one-time
+- Link ID: `plink_1TTo11GGBpd520QYX9R9eEwu`
+- URL: https://buy.stripe.com/28E7sL3Ug3n0bO935V3sI0r
