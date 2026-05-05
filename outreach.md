@@ -14,7 +14,10 @@ I just packaged a done-for-you setup for founders/devs:
 - Computer Use / macOS automation verification
 - short operating runbook
 
-If you want low-risk triage first, the async diagnostic is $99:
+If you want low-risk triage first, same-day triage is $49 today:
+https://buy.stripe.com/28E7sL3Ug3n0bO935V3sI0r
+
+The normal async diagnostic is $99:
 https://buy.stripe.com/28EfZheyU2iW4lH35V3sI0q
 
 Full one-time setup is $497:
