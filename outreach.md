@@ -14,7 +14,10 @@ I just packaged a done-for-you setup for founders/devs:
 - Computer Use / macOS automation verification
 - short operating runbook
 
-One-time setup is $497:
+If you want low-risk triage first, the async diagnostic is $99:
+https://buy.stripe.com/28EfZheyU2iW4lH35V3sI0q
+
+Full one-time setup is $497:
 https://buy.stripe.com/aFa14nbmIg9M3hDayn3sI0k
 
 If you want, send me your top 3 failure examples and I will tell you whether this is a fit before you buy.
@@ -32,11 +35,14 @@ They are setup failures:
 - same TUI session reused across projects
 - verbose defaults burning context
 
-I turned my own OpenClaw/Codex setup fix into a $497 done-for-you service.
+I turned my own OpenClaw/Codex setup fix into a $99 diagnostic and $497 done-for-you service.
 
 It includes model routing, token-smart defaults, isolated project sessions, Computer Use verification, and a short runbook.
 
-Checkout:
+Diagnostic:
+https://buy.stripe.com/28EfZheyU2iW4lH35V3sI0q
+
+Full setup:
 https://buy.stripe.com/aFa14nbmIg9M3hDayn3sI0k
 
 ## Helpful Reddit Reply
