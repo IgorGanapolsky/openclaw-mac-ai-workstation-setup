@@ -15,6 +15,9 @@ https://igorganapolsky.github.io/openclaw-mac-ai-workstation-setup/
 
 ## Buy
 
+- Diagnostic: $99  
+  https://buy.stripe.com/28EfZheyU2iW4lH35V3sI0q
+
 - One-time setup: $497  
   https://buy.stripe.com/aFa14nbmIg9M3hDayn3sI0k
 
