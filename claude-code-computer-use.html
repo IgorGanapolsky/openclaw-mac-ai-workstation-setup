@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Claude Code Computer Use checkAccessibility/registerEscape Fix</title>
+    <meta name="description" content="Practical triage for Claude Code Computer Use MCP failures on macOS: checkAccessibility undefined, registerEscape undefined, native module path, permissions, and smoke tests.">
+    <style>
+      :root { color-scheme: light; --ink:#111827; --muted:#4b5563; --line:#d1d5db; --accent:#0f766e; --bg:#f8fafc; }
+      * { box-sizing: border-box; }
+      body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; color:var(--ink); background:var(--bg); line-height:1.55; }
+      main { max-width:880px; margin:0 auto; padding:48px 20px 64px; }
+      h1 { font-size:clamp(2rem,5vw,3.4rem); line-height:1.02; margin:0 0 16px; letter-spacing:0; }
+      h2 { font-size:1.35rem; margin:36px 0 10px; }
+      p, li { font-size:1.02rem; color:var(--muted); }
+      code, pre { font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; }
+      pre { overflow:auto; padding:16px; border:1px solid var(--line); background:white; border-radius:8px; }
+      .cta { display:flex; flex-wrap:wrap; gap:12px; margin:24px 0 8px; }
+      a.button { display:inline-flex; align-items:center; justify-content:center; min-height:44px; padding:0 16px; border-radius:8px; background:var(--accent); color:white; text-decoration:none; font-weight:700; }
+      a.secondary { background:white; color:var(--ink); border:1px solid var(--line); }
+      .note { border-left:4px solid var(--accent); padding:12px 16px; background:white; color:var(--muted); }
+      .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px; }
+      .box { background:white; border:1px solid var(--line); border-radius:8px; padding:16px; }
+      .box strong { display:block; color:var(--ink); margin-bottom:6px; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <p><a href="./">OpenClaw Mac AI Workstation Setup</a></p>
+      <h1>Claude Code Computer Use crashes with <code>checkAccessibility</code> or <code>registerEscape</code>?</h1>
+      <p>If the MCP server connects but every Computer Use call fails, treat it as a native module/runtime-path problem first, then verify macOS permissions. Do not assume Accessibility and Screen Recording are the root cause just because the error mentions access.</p>
+
+      <div class="cta">
+        <a class="button" href="https://buy.stripe.com/28E7sL3Ug3n0bO935V3sI0r">Same-day triage for $49</a>
+        <a class="button secondary" href="https://buy.stripe.com/28EfZheyU2iW4lH35V3sI0q">Get diagnostic for $99</a>
+        <a class="button secondary" href="https://buy.stripe.com/aFa14nbmIg9M3hDayn3sI0k">Book setup for $497</a>
+      </div>
+
+      <h2>Fast Read</h2>
+      <div class="grid">
+        <div class="box"><strong>Symptom</strong>Computer Use MCP reconnects, but tool calls fail with undefined native methods.</div>
+        <div class="box"><strong>Likely layer</strong>The CLI cannot load the native Computer Use Swift module from the path it expects.</div>
+        <div class="box"><strong>Good proof</strong>A Node smoke test can require the native module and list TCC methods.</div>
+      </div>
+
+      <h2>1. Verify the native module exists</h2>
+      <p>On affected setups, the binary may exist inside Claude Desktop even when the CLI/native install does not expose it in the expected package path.</p>
+      <pre><code>ls "/Applications/Claude.app/Contents/Resources/app.asar.unpacked/node_modules/@ant/claude-swift/build/Release/computer_use.node"</code></pre>
+
+      <h2>2. Point Claude Code at that module</h2>
+      <p>If the file exists, export the module path before launching Claude Code. Add it to your shell profile only after the one-session test works.</p>
+      <pre><code>export COMPUTER_USE_SWIFT_NODE_PATH="/Applications/Claude.app/Contents/Resources/app.asar.unpacked/node_modules/@ant/claude-swift/build/Release/computer_use.node"</code></pre>
+
+      <h2>3. Smoke test the module directly</h2>
+      <p>This confirms that the loaded native module exposes the TCC methods Computer Use needs.</p>
+      <pre><code>node -e "const m = require(process.env.COMPUTER_USE_SWIFT_NODE_PATH); console.log(Object.keys(m.computerUse.tcc));"</code></pre>
+      <p class="note">A useful result includes methods such as <code>checkAccessibility</code>, <code>requestAccessibility</code>, <code>checkScreenRecording</code>, and <code>requestScreenRecording</code>.</p>
+
+      <h2>4. Separate permission state from runtime state</h2>
+      <p>After fixing the module path, quit and relaunch the host app, then verify the actual runtime can call Computer Use. Permission panels can be green while the active MCP runtime still cannot load the native helper.</p>
+      <ul>
+        <li>Confirm Claude Desktop is installed and updated.</li>
+        <li>Confirm Accessibility and Screen Recording are granted to the right host app.</li>
+        <li>Restart the CLI session after exporting the native module path.</li>
+        <li>Run a real Computer Use tool call, not just a text response from the agent.</li>
+      </ul>
+
+      <h2>When to use the paid triage</h2>
+      <p>Buy triage if you want me to inspect the actual failing layer and return the smallest fix. I do not bypass macOS security controls or guarantee upstream bugs can be fixed locally.</p>
+      <div class="cta">
+        <a class="button" href="https://buy.stripe.com/28E7sL3Ug3n0bO935V3sI0r">Buy $49 triage</a>
+        <a class="button secondary" href="https://github.com/IgorGanapolsky/openclaw-mac-ai-workstation-setup/issues/1">Send intake details</a>
+      </div>
+    </main>
+  </body>
+</html>
