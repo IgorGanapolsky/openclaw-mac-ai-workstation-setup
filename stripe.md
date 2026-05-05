@@ -26,6 +26,16 @@ Created: 2026-05-05 12:30 EDT
 - Link ID: `plink_1TTlrRGGBpd520QYRt09UoEq`
 - URL: https://buy.stripe.com/aFa14nbmIg9M3hDayn3sI0k
 
+## Quick Read Product
+
+- Created: 2026-05-05
+- Name: Mac AI Agent Quick Read
+- Product ID: `prod_USk2AS3Xv6DRA3`
+- Price ID: `price_1TToY1GGBpd520QYHV9IR7ch`
+- Amount: $19 one-time
+- Link ID: `plink_1TToY7GGBpd520QYAkdRtcS8`
+- URL: https://buy.stripe.com/aFaeVd3Ug3n05pLfSH3sI0u
+
 ## Maintenance Price
 
 - Price ID: `price_1TTltfGGBpd520QY3oTzzZLO`
