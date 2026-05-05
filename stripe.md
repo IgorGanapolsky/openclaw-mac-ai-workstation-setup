@@ -37,3 +37,13 @@ Created: 2026-05-05 12:30 EDT
 
 - Link ID: `plink_1TTltkGGBpd520QYNjO7EUA3`
 - URL: https://buy.stripe.com/bJe3cv0I40aO7xTeOD3sI0l
+
+## Diagnostic Product
+
+- Created: 2026-05-05
+- Name: OpenClaw Mac AI Agent Diagnostic
+- Product ID: `prod_USjBuXEfI9yNTr`
+- Price ID: `price_1TTnilGGBpd520QY040NI9m5`
+- Amount: $99 one-time
+- Link ID: `plink_1TTnioGGBpd520QYCAEW2mlE`
+- URL: https://buy.stripe.com/28EfZheyU2iW4lH35V3sI0q
