@@ -15,6 +15,9 @@ https://igorganapolsky.github.io/openclaw-mac-ai-workstation-setup/
 
 ## Buy
 
+- Same-day triage: $49  
+  https://buy.stripe.com/28E7sL3Ug3n0bO935V3sI0r
+
 - Diagnostic: $99  
   https://buy.stripe.com/28EfZheyU2iW4lH35V3sI0q
 
