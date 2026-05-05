@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>OpenClaw Mac AI Workstation Setup</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: #111318;
+        --muted: #5c6470;
+        --line: #d8dde5;
+        --panel: #f6f8fb;
+        --accent: #0f766e;
+        --accent-dark: #0b5f59;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        color: var(--ink);
+        background: #ffffff;
+        line-height: 1.5;
+      }
+      .wrap {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 48px 20px 64px;
+      }
+      header {
+        display: grid;
+        gap: 22px;
+        padding-bottom: 34px;
+        border-bottom: 1px solid var(--line);
+      }
+      .eyebrow {
+        margin: 0;
+        color: var(--accent);
+        font-weight: 700;
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 0;
+      }
+      h1 {
+        margin: 0;
+        font-size: clamp(38px, 7vw, 72px);
+        line-height: 0.96;
+        letter-spacing: 0;
+        max-width: 900px;
+      }
+      .sub {
+        margin: 0;
+        color: var(--muted);
+        font-size: 20px;
+        max-width: 760px;
+      }
+      .cta-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        align-items: center;
+      }
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 48px;
+        padding: 0 18px;
+        border-radius: 6px;
+        background: var(--accent);
+        color: white;
+        text-decoration: none;
+        font-weight: 700;
+      }
+      .button:hover { background: var(--accent-dark); }
+      .price {
+        color: var(--muted);
+        font-weight: 700;
+      }
+      section {
+        padding: 34px 0;
+        border-bottom: 1px solid var(--line);
+      }
+      h2 {
+        margin: 0 0 16px;
+        font-size: 26px;
+        letter-spacing: 0;
+      }
+      ul {
+        padding-left: 20px;
+        margin: 0;
+      }
+      li + li { margin-top: 8px; }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+      }
+      .item {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 18px;
+        background: var(--panel);
+      }
+      .item strong { display: block; margin-bottom: 6px; }
+      .proof {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        background: #111318;
+        color: #e8eef5;
+        padding: 16px;
+        border-radius: 8px;
+        overflow-wrap: anywhere;
+      }
+      footer {
+        padding-top: 28px;
+        color: var(--muted);
+        font-size: 14px;
+      }
+      @media (max-width: 700px) {
+        .wrap { padding-top: 32px; }
+        .grid { grid-template-columns: 1fr; }
+        .sub { font-size: 18px; }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <header>
+        <p class="eyebrow">Done-for-you Mac AI-agent setup</p>
+        <h1>Make OpenClaw, Codex, and Computer Use actually work on your Mac.</h1>
+        <p class="sub">I fix the boring failures that make AI agents unusable: stale auth, broken model routing, token bloat, reused sessions, macOS permission gaps, and Computer Use refusing simple tasks.</p>
+        <div class="cta-row">
+          <a class="button" href="https://buy.stripe.com/aFa14nbmIg9M3hDayn3sI0k">Book setup for $497</a>
+          <span class="price">One-time async setup. Evidence-backed delivery.</span>
+        </div>
+      </header>
+
+      <section>
+        <h2>What You Get</h2>
+        <div class="grid">
+          <div class="item"><strong>Model routing</strong>Smart defaults for coding, marketing, fallbacks, context, and compaction.</div>
+          <div class="item"><strong>Computer Use</strong>macOS permissions and real smoke tests for desktop automation.</div>
+          <div class="item"><strong>Project isolation</strong>Per-directory sessions so one project does not pollute another.</div>
+          <div class="item"><strong>Runbook</strong>A concise operating note showing what changed and how to use it.</div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Good Fit</h2>
+        <ul>
+          <li>Your AI agent freezes, refuses simple actions, or gives irrelevant verbose answers.</li>
+          <li>OpenClaw/Codex uses the wrong model or stale OAuth profile.</li>
+          <li>Computer Use cannot inspect, click, type, or list apps reliably.</li>
+          <li>You want a practical local workstation for coding and business automation.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Proof From My Own Setup</h2>
+        <div class="proof">Gateway OK. Main agent: Claude Sonnet via OpenRouter. Dedicated Computer Use agent: openai/gpt-5.5 via Codex runtime. Permissions: Screen Recording=true, Accessibility=true. Smoke: ACTIVE_APP=WezTerm; APP_COUNT=8 using computer-use.list_apps.</div>
+      </section>
+
+      <section>
+        <h2>Boundaries</h2>
+        <ul>
+          <li>No guaranteed revenue outcomes.</li>
+          <li>No macOS security bypasses.</li>
+          <li>No secret exposure. Keys are entered locally or stored in your own manager.</li>
+          <li>No sending, publishing, or spending without approval.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Start</h2>
+        <p>Book the setup, then send your Mac version, current agent stack, and top three failure examples.</p>
+        <div class="cta-row">
+          <a class="button" href="https://buy.stripe.com/aFa14nbmIg9M3hDayn3sI0k">Book setup for $497</a>
+          <a class="button" href="https://buy.stripe.com/bJe3cv0I40aO7xTeOD3sI0l">Add maintenance for $250/mo</a>
+        </div>
+      </section>
+
+      <footer>
+        OpenClaw Mac AI Workstation Setup. Built for founders and developers who need agents to do real work, not burn time.
+      </footer>
+    </main>
+  </body>
+</html>
