@@ -8,6 +8,8 @@ This is a done-for-you setup for founders and developers who already use AI codi
 
 ## Price
 
+- Diagnostic: $99
+- Diagnostic checkout: https://buy.stripe.com/28EfZheyU2iW4lH35V3sI0q
 - One-time setup: $497
 - Stripe checkout: https://buy.stripe.com/aFa14nbmIg9M3hDayn3sI0k
 - Optional maintenance: $250/month
@@ -22,6 +24,8 @@ This is a done-for-you setup for founders and developers who already use AI codi
 ## Promise
 
 In one async setup pass, I will make your Mac agent setup usable and evidence-backed.
+
+For the $99 diagnostic, I will review the buyer's top failure examples and return a concise triage note with likely root cause, exact checks to run, and whether the full setup is a fit.
 
 ## Deliverables
 
@@ -54,6 +58,8 @@ Ask buyer for:
 - Their top 3 failure examples.
 - Whether they need Computer Use, browser automation, coding automation, marketing automation, or all of the above.
 - Whether remote screen-share is allowed or if they prefer async terminal logs.
+
+Use the customer email attached to the Stripe checkout for fulfillment follow-up.
 
 ## Proof From Igor's Setup
 
