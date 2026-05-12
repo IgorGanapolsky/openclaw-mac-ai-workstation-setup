@@ -17,6 +17,7 @@ const requiredFiles = [
   "offer.md",
   "fulfillment.md",
   "stripe.md",
+  "revenue-ops-pack.md",
 ];
 const secretPatterns = [
   { name: "GitHub PAT", pattern: /gh[pousr]_[A-Za-z0-9_]{20,}/ },

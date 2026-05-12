@@ -8,6 +8,9 @@ https://igorganapolsky.github.io/openclaw-mac-ai-workstation-setup/
 Quick read:
 https://igorganapolsky.github.io/openclaw-mac-ai-workstation-setup/quick-read.html
 
+Revenue ops pack:
+./revenue-ops-pack.md
+
 ## What It Fixes
 
 - OpenClaw/Codex refusing simple actions.
@@ -15,6 +18,7 @@ https://igorganapolsky.github.io/openclaw-mac-ai-workstation-setup/quick-read.ht
 - Stale OAuth profiles and broken model routes.
 - Excessive token burn from noisy defaults.
 - TUI sessions reused across unrelated project directories.
+- Long-running agent jobs that hang instead of producing auditable status.
 
 ## Buy
 
