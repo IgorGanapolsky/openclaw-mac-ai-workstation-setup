@@ -6,6 +6,18 @@ I fix your Mac AI-agent setup so OpenClaw/Codex can actually code, reason, and u
 
 This is a done-for-you setup for founders and developers who already use AI coding agents and want a reliable local workstation.
 
+The stronger productized offer is an OpenClaw agent app: one concrete workflow such as WhatsApp lead response, daily owner briefing, CRM follow-up, lead monitoring, or Upwork proposal drafting.
+
+For security-conscious buyers, the productized offer is an authorized AI agent exposure audit covering MCP servers, OpenClaw gateways, Ollama/inference endpoints, auth posture, CORS, TLS, exposed tools, and prompt/config leakage.
+
+For cost-conscious buyers, the productized offer is a routing pass that classifies prompts locally and escalates only the work that needs stronger models.
+
+For reliability-conscious buyers, the productized offer is a durable workflow plan with retryable steps, approval waits, resume behavior, and proof logs.
+
+For governance-conscious buyers, the productized offer is a consent layer with granular actions, short-lived transaction scope, just-in-time prompts, and revocation checks.
+
+For enterprise buyers, the productized offer is provider access design across direct APIs, Claude Platform on AWS, Bedrock, OpenRouter, and local models.
+
 ## Price
 
 - Diagnostic: $99
@@ -36,6 +48,16 @@ For the $99 diagnostic, I will review the buyer's top failure examples and retur
 - Provider/auth cleanup with invalid profiles removed or isolated.
 - A short runbook showing exactly how to use the setup.
 - Before/after evidence: command outputs, screenshots when needed, and smoke-test results.
+
+## Agent App Deliverables
+
+- Plain-English workflow definition.
+- Demo run using sample data before live access.
+- Approval boundary for external actions.
+- Live setup only after the demo is approved.
+- Runbook, proof artifact, and disable path.
+- Governance checklist for owner, trigger, data boundary, tool boundary, approval boundary, and failure behavior.
+- Reflection note after delivery so reusable fixes become better runbooks, proposal wording, or scripts.
 
 ## Boundaries
 

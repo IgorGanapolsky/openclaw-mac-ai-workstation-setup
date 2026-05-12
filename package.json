@@ -7,7 +7,11 @@
     "test": "node scripts/validate-site.mjs",
     "ci": "npm test && npm run release:dry-run",
     "release:dry-run": "node scripts/build-release.mjs --dry-run",
-    "safe:ci": "node scripts/safe-command-runner.mjs --timeout-ms 180000 --idle-timeout-ms 60000 -- npm run ci"
+    "safe:ci": "node scripts/safe-command-runner.mjs --timeout-ms 180000 --idle-timeout-ms 60000 -- npm run ci",
+    "reflect:demo": "node scripts/reflect-task.mjs --goal=\"Demo the reflection loop\" --worked=\"Captured a reusable pattern without secrets\" --target=\"self-improvement-loop.md\" --validation=\"npm run ci\"",
+    "security:local": "node scripts/local-security-check.mjs",
+    "route:demo": "node scripts/route-demo.mjs",
+    "consent:demo": "node scripts/consent-policy-demo.mjs"
   },
   "engines": {
     "node": ">=20"
