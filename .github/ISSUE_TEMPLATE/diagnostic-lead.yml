@@ -1,0 +1,30 @@
+name: Diagnostic Lead
+description: Track a Mac agent setup, Codex, OpenClaw, or Computer Use diagnostic lead.
+title: "[Lead]: "
+labels: ["lead", "diagnostic"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What is failing?
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: Link issue, post, logs, screenshots, or customer notes.
+    validations:
+      required: true
+  - type: dropdown
+    id: offer
+    attributes:
+      label: Best-fit offer
+      options:
+        - $19 quick read
+        - $49 triage
+        - $99 diagnostic
+        - $497 setup
+    validations:
+      required: true
