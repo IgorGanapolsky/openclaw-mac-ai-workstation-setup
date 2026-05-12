@@ -1,0 +1,14 @@
+{
+  "name": "openclaw-mac-ai-workstation-setup",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Static offer site and fulfillment docs for OpenClaw/Codex/Computer Use Mac setup services.",
+  "scripts": {
+    "test": "node scripts/validate-site.mjs",
+    "ci": "npm test && npm run release:dry-run",
+    "release:dry-run": "node scripts/build-release.mjs --dry-run"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

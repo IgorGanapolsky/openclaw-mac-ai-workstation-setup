@@ -1,0 +1,48 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Release tag to package, for example v0.1.0"
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: package-and-release
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "20"
+
+      - name: Validate package contents
+        run: npm run ci
+
+      - name: Build release bundle
+        run: |
+          set -euo pipefail
+          mkdir -p dist/bundle
+          cp README.md index.html quick-read.html troubleshooting.html claude-code-computer-use.html \
+            codex-computer-use-macos-checklist.md github-issue-diagnostic.md offer.md fulfillment.md \
+            stripe.md outreach.md lead-sources.md dist/RELEASE_MANIFEST.md dist/bundle/
+          (cd dist/bundle && zip -qr ../openclaw-mac-ai-workstation-setup.zip .)
+
+      - name: Publish GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ github.event.inputs.tag || github.ref_name }}
+        run: |
+          set -euo pipefail
+          gh release view "$RELEASE_TAG" >/dev/null 2>&1 || \
+            gh release create "$RELEASE_TAG" --title "$RELEASE_TAG" --notes "OpenClaw Mac AI Workstation Setup release."
+          gh release upload "$RELEASE_TAG" dist/openclaw-mac-ai-workstation-setup.zip dist/RELEASE_MANIFEST.md --clobber
