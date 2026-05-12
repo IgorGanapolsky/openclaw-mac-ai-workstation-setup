@@ -18,6 +18,8 @@ const releaseFiles = [
   "stripe.md",
   "outreach.md",
   "lead-sources.md",
+  "revenue-ops-pack.md",
+  "scripts/safe-command-runner.mjs",
 ];
 
 const rows = releaseFiles.map((file) => {
