@@ -8,6 +8,7 @@ This is the public, sanitized delivery pattern for turning a Mac OpenClaw/Codex 
 - Keeps a current revenue-truth memory before anyone claims progress.
 - Produces channel analytics from lead logs and close packets.
 - Packages the recurring setup as a sellable service instead of one-off troubleshooting.
+- Reframes the sale as installable agent apps with plain-English outcomes.
 
 ## Delivery Boundary
 
@@ -61,6 +62,28 @@ The goal is not activity volume by itself. The goal is an auditable funnel from 
 **OpenClaw AI Ops Revenue Setup**
 
 I set up a practical OpenClaw-based revenue ops worker for one business workflow: offer publishing, lead tracking, buyer-response triage, revenue truth reporting, and safe background execution.
+
+Use the app catalog as the sales menu:
+
+- WhatsApp Lead Responder
+- Daily Owner Briefing
+- CRM Follow-Up Agent
+- Reddit And GitHub Lead Monitor
+- Upwork Proposal Assistant
+- AI Agent Security Auditor
+
+## Market Signals
+
+- AIMap-style discovery shows buyers now need AI-specific exposure audits for MCP, Ollama, OpenClaw, inference proxies, and agent tools.
+- Emerging AI-agent guidelines point toward safety, controllability, standardization, and application-driven delivery.
+- Hermes-style systems show that agents compound faster when completed work becomes reusable procedural memory.
+- GitHub MCP security scanning points to pre-commit/pre-PR security gates inside agent workflows.
+- Dynamic durable-workflow platforms point to per-buyer workflow plans with retry, wait, resume, and proof semantics.
+- Cost-aware routing patterns point to local prompt classification before expensive model calls.
+- Empty or inaccessible social posts must not drive product claims without verified content.
+- Hermes personal-assistant rollout patterns point to role-specific VPS agents with Telegram, private GitHub backups, crons, and least-privilege env files.
+- Consent/permission patterns point to granular, expiring, revocable action policies rather than broad "agent can manage X" access.
+- Claude Platform on AWS points to an enterprise provider-access offer where AWS identity, billing, and audit needs matter as much as model capability.
 
 Typical first workflows:
 

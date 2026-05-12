@@ -11,6 +11,9 @@ https://igorganapolsky.github.io/openclaw-mac-ai-workstation-setup/quick-read.ht
 Revenue ops pack:
 ./revenue-ops-pack.md
 
+Agent app catalog:
+./agent-app-catalog.md
+
 ## What It Fixes
 
 - OpenClaw/Codex refusing simple actions.
@@ -19,6 +22,7 @@ Revenue ops pack:
 - Excessive token burn from noisy defaults.
 - TUI sessions reused across unrelated project directories.
 - Long-running agent jobs that hang instead of producing auditable status.
+- Generic AI automation offers that need to become concrete buyer outcomes.
 
 ## Buy
 
@@ -36,6 +40,51 @@ Revenue ops pack:
 
 - Optional maintenance: $250/month  
   https://buy.stripe.com/bJe3cv0I40aO7xTeOD3sI0l
+
+## Agent Apps
+
+The higher-converting offer is an app outcome, not infrastructure:
+
+- WhatsApp Lead Responder
+- Daily Owner Briefing
+- CRM Follow-Up Agent
+- Reddit And GitHub Lead Monitor
+- Upwork Proposal Assistant
+- AI Agent Security Auditor
+- Durable Agent Workflow
+- Cost-Aware LLM Router
+- Hermes VPS Assistant
+- Agent Consent Layer
+
+Catalog:
+https://igorganapolsky.github.io/openclaw-mac-ai-workstation-setup/agent-app-catalog.html
+
+Security audit:
+./ai-agent-security-audit.md
+
+Governance standard:
+./agent-governance-standard.md
+
+Self-improvement loop:
+./self-improvement-loop.md
+
+MCP security gate:
+./mcp-security-gate.md
+
+Durable workflow standard:
+./durable-agent-workflows.md
+
+Cost-aware routing:
+./cost-aware-routing.md
+
+Hermes VPS rollout:
+./hermes-vps-agent-rollout.md
+
+Agent consent policy:
+./agent-consent-policy.md
+
+Enterprise provider access:
+./enterprise-provider-access.md
 
 ## Evidence
 
