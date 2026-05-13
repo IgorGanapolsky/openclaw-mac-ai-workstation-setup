@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Codex "Computer Use plugin unavailable" on macOS: Why and How to Fix It</title>
+    <meta name="description" content="Fix the Codex error 'Computer Use plugin unavailable' on macOS even when the bundled plugin files exist. Covers cache, macOS version mismatch, Intel binaries, and TCC permission failures.">
+    <link rel="canonical" href="https://igorganapolsky.github.io/openclaw-mac-ai-workstation-setup/computer-use-plugin-unavailable.html">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Codex Computer Use plugin unavailable on macOS: causes and fix">
+    <meta property="og:description" content="Same-day root cause for the four most common reasons Codex Computer Use is unavailable on macOS despite bundled plugin files existing.">
+    <meta property="og:url" content="https://igorganapolsky.github.io/openclaw-mac-ai-workstation-setup/computer-use-plugin-unavailable.html">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "Codex Computer Use plugin unavailable on macOS: causes and fix",
+      "description": "Diagnose why Codex reports Computer Use plugin unavailable on macOS even when the bundled plugin files exist, and the exact next checks for each root cause.",
+      "author": { "@type": "Person", "name": "Igor Ganapolsky" },
+      "datePublished": "2026-05-13",
+      "dateModified": "2026-05-13",
+      "inLanguage": "en",
+      "url": "https://igorganapolsky.github.io/openclaw-mac-ai-workstation-setup/computer-use-plugin-unavailable.html",
+      "about": ["Codex", "Computer Use", "macOS", "OpenClaw", "MCP"],
+      "mainEntityOfPage": "https://igorganapolsky.github.io/openclaw-mac-ai-workstation-setup/computer-use-plugin-unavailable.html"
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      "name": "Fix Codex Computer Use plugin unavailable on macOS",
+      "description": "Step-by-step diagnostic for the four most common reasons Codex Computer Use is unavailable on macOS.",
+      "totalTime": "PT15M",
+      "step": [
+        { "@type": "HowToStep", "name": "Confirm the bundled plugin is registered in the active Codex profile", "text": "Run codex mcp list. If computer-use is missing, register the bundled plugin with codex plugin marketplace add /Applications/Codex.app/Contents/Resources/plugins/openai-bundled and rerun." },
+        { "@type": "HowToStep", "name": "Check the plugin cache is populated", "text": "Confirm ~/.codex/plugins/cache/openai-bundled/computer-use/*/.mcp.json exists. If absent, the marketplace add never hydrated the cache for this macOS user." },
+        { "@type": "HowToStep", "name": "Confirm the binary architecture matches your Mac", "text": "On Intel Macs, the bundled SkyComputerUseClient may be arm64-only. Inspect the binary with file /Applications/Codex.app/Contents/Resources/plugins/openai-bundled/computer-use/*/SkyComputerUseClient and verify it includes x86_64." },
+        { "@type": "HowToStep", "name": "Confirm the macOS version is high enough", "text": "If the bundled client was built for macOS 15 you cannot run it on macOS 14. Verify with /usr/bin/otool -l on the binary and check LC_BUILD_VERSION minos." },
+        { "@type": "HowToStep", "name": "Grant Screen Recording and Accessibility to the right host", "text": "Permissions apply to the host process that runs Computer Use, not just Codex. Re-run after granting and after a TCC reset confirm both prompts re-appear and are accepted." }
+      ]
+    }
+    </script>
+    <style>
+      body { margin: 0; font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #111318; background: #fff; line-height: 1.55; }
+      main { max-width: 860px; margin: 0 auto; padding: 44px 20px 72px; }
+      h1 { font-size: clamp(34px, 6vw, 56px); line-height: 1.05; margin: 0 0 14px; letter-spacing: 0; }
+      h2 { margin-top: 36px; font-size: 26px; letter-spacing: 0; }
+      h3 { margin-top: 22px; font-size: 19px; }
+      p, li { font-size: 18px; }
+      .lead { color: #5c6470; font-size: 21px; max-width: 760px; }
+      code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+      pre { background: #111318; color: #e8eef5; padding: 16px; border-radius: 8px; overflow-x: auto; font-size: 14px; }
+      .cta-row { display: flex; flex-wrap: wrap; gap: 12px; margin: 20px 0; }
+      a.button { display: inline-flex; min-height: 48px; align-items: center; justify-content: center; padding: 0 18px; border-radius: 6px; background: #0f766e; color: white; text-decoration: none; font-weight: 700; }
+      a.button.secondary { background: #111318; }
+      .note { border: 1px solid #d8dde5; border-radius: 8px; background: #f6f8fb; padding: 16px; margin: 18px 0; }
+      .err { color: #b91c1c; font-weight: 600; }
+      footer { margin-top: 56px; padding-top: 18px; border-top: 1px solid #d8dde5; color: #5c6470; font-size: 14px; }
+      footer a { color: #5c6470; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <p><a href="./">&larr; OpenClaw Mac AI Workstation Setup</a></p>
+      <h1>Codex "Computer Use plugin unavailable" on macOS</h1>
+      <p class="lead">If you see <span class="err">Computer Use plugin unavailable</span> in Codex on macOS even though the bundled plugin files exist on disk, the file's existence is not the right signal. The active Codex profile has to register the plugin, hydrate its cache, and run a binary that matches your CPU and macOS version. Below are the four causes that account for almost every report.</p>
+
+      <div class="cta-row">
+        <a class="button" href="https://buy.stripe.com/aFaeVd3Ug3n05pLfSH3sI0u">$19 quick read: send your error, get the likely root cause</a>
+        <a class="button secondary" href="https://buy.stripe.com/28E7sL3Ug3n0bO935V3sI0r">$49 same-day triage</a>
+      </div>
+
+      <h2>The exact error</h2>
+      <p>Common variants users paste into search:</p>
+      <ul>
+        <li><code>Computer Use plugin unavailable</code></li>
+        <li><code>computer-use bundled plugin is missing</code></li>
+        <li><code>SkyComputerUseClient built for macOS 15.0 crashes on macOS 14</code></li>
+        <li><code>Computer Use unavailable when Codex is updated under a different macOS user</code></li>
+        <li><code>Computer Use MCP fails to start on macOS 14.8.1</code></li>
+      </ul>
+
+      <h2>1. The plugin is bundled but never registered</h2>
+      <p>The bundled plugin lives in the Codex app bundle, but the active profile has to register it. If <code>codex mcp list</code> does not show <code>computer-use</code>, the cache was never hydrated.</p>
+<pre><code>codex mcp list
+codex plugin marketplace add /Applications/Codex.app/Contents/Resources/plugins/openai-bundled
+codex mcp list</code></pre>
+      <p>After the second <code>list</code>, <code>computer-use</code> should appear. If it still does not, see the next sections — the registration succeeded but the runtime cannot run the binary.</p>
+
+      <h2>2. The cache is hydrated for a different macOS user</h2>
+      <p>Codex stores its plugin cache under <code>~/.codex/plugins/cache</code>. If the app was installed and registered under macOS user A but you are now running as macOS user B, B's cache is empty even though A's is fine. The same skew happens when Codex is updated by an admin under <code>/Applications</code> but used by a non-admin account.</p>
+<pre><code>ls ~/.codex/plugins/cache/openai-bundled/computer-use/*/.mcp.json
+ls ~/.codex/plugins/cache/openai-bundled/computer-use/*/.codex-plugin/plugin.json</code></pre>
+      <p>If both paths are missing for the current user, re-run <code>codex plugin marketplace add</code> while logged in as that user.</p>
+
+      <h2>3. The bundled binary does not match your CPU</h2>
+      <p>On Intel Macs the bundled <code>SkyComputerUseClient</code> may be arm64-only, so registration succeeds but launch fails silently and Codex reports the plugin unavailable. Inspect the binary:</p>
+<pre><code>file /Applications/Codex.app/Contents/Resources/plugins/openai-bundled/computer-use/*/SkyComputerUseClient
+# look for: Mach-O universal binary with 2 architectures
+# or:       Mach-O 64-bit executable x86_64</code></pre>
+      <p>If the binary is arm64 only, Intel Macs cannot launch it. The fix is a universal or x86_64 build, or a different runtime; this is not something a permission grant can resolve.</p>
+
+      <h2>4. The bundled client requires a newer macOS</h2>
+      <p>If the bundled <code>SkyComputerUseClient</code> was built for macOS 15.0, running it on macOS 14.x will crash on launch and Codex will surface the plugin as unavailable. Confirm with:</p>
+<pre><code>/usr/bin/otool -l /Applications/Codex.app/Contents/Resources/plugins/openai-bundled/computer-use/*/SkyComputerUseClient \
+  | grep -A 2 LC_BUILD_VERSION
+# minos = the minimum macOS your current build requires</code></pre>
+      <p>If <code>minos</code> is higher than your current macOS, you either upgrade macOS or use a Codex version whose bundled client targets your OS.</p>
+
+      <h2>5. Permissions are granted to the wrong host</h2>
+      <p>Screen Recording and Accessibility have to apply to the process that actually executes Computer Use, not just to Codex. After granting, you should be able to call a Computer Use tool and get a real response, not an unavailable plugin notice. A working smoke test on macOS:</p>
+<pre><code># From within the Codex harness:
+computer-use.list_apps
+# Expected: ACTIVE_APP=&lt;something&gt;; APP_COUNT=&lt;number&gt;</code></pre>
+      <p>If the tool answers in text instead of returning structured app data, the runtime is not the Computer Use runtime — the active model or routing is wrong, not the plugin.</p>
+
+      <div class="note">
+        <p><strong>If you want this resolved today instead of debugging:</strong> the $49 triage covers root cause and the exact next move. Send your Codex version, <code>codex mcp list</code> output, and the crashing log; you get a same-day reply.</p>
+      </div>
+
+      <div class="cta-row">
+        <a class="button secondary" href="https://buy.stripe.com/28EfZheyU2iW4lH35V3sI0q">$99 diagnostic</a>
+        <a class="button secondary" href="https://buy.stripe.com/aFa14nbmIg9M3hDayn3sI0k">$497 done-for-you setup</a>
+      </div>
+
+      <h2>Related guides</h2>
+      <ul>
+        <li><a href="./troubleshooting.html">General Codex Computer Use macOS checklist</a></li>
+        <li><a href="./codex-computer-use-intel-mac.html">Codex Computer Use unavailable on Intel Mac</a></li>
+        <li><a href="./claude-code-computer-use.html">Claude Code Computer Use crashes with checkAccessibility/registerEscape</a></li>
+        <li><a href="./quick-read.html">$19 quick read</a></li>
+      </ul>
+
+      <footer>
+        Author: Igor Ganapolsky. Boundaries: no macOS security bypasses, no secret exposure, no guaranteed revenue outcomes. Source repo: <a href="https://github.com/IgorGanapolsky/openclaw-mac-ai-workstation-setup">openclaw-mac-ai-workstation-setup</a>.
+      </footer>
+    </main>
+  </body>
+</html>
