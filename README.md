@@ -1,54 +1,52 @@
 # OpenClaw Mac AI Workstation Setup
 
-Done-for-you setup for founders and developers whose Mac AI-agent stack is not usable yet.
+Done-for-you Mac AI-agent setup. When your local Codex / OpenClaw / Claude Code stack refuses simple actions, burns context, falls back silently, or can't use Computer Use — this is the fix.
 
-Public page:
-https://igorganapolsky.github.io/openclaw-mac-ai-workstation-setup/
+Public page → https://igorganapolsky.github.io/openclaw-mac-ai-workstation-setup/
 
-Quick read:
-https://igorganapolsky.github.io/openclaw-mac-ai-workstation-setup/quick-read.html
+## Start Here
 
-Revenue ops pack:
-./revenue-ops-pack.md
+**Cheapest path:** $19 quick read. Send one failing transcript or log excerpt. Get back the likely root cause, the next command to run, and a recommendation on whether you need the higher tiers.
 
-Agent app catalog:
-./agent-app-catalog.md
+→ https://buy.stripe.com/aFaeVd3Ug3n05pLfSH3sI0u
+
+If you came in from a GitHub issue with a specific bug, jump to **$49 same-day triage** — issue-referred buyers are usually already qualified for that.
+
+→ https://buy.stripe.com/28E7sL3Ug3n0bO935V3sI0r
+
+## The Ladder
+
+| Tier | Price | What you get | Best fit |
+| --- | --- | --- | --- |
+| Quick Read | $19 | One root-cause note + next-command recommendation | Cold buyer wants a sanity check before spending more |
+| Same-Day Triage | $49 | Async root-cause direction within 24h | Buyer with one specific GitHub-issue-style failure |
+| Diagnostic | $99 | Concise diagnostic note with exact next steps and patch direction | Buyer with multiple failures |
+| Done-For-You Setup | $497 | Full configuration of routing, sessions, Computer Use, smoke tests, runbook | Buyer who wants a working stack delivered |
+| Maintenance | $250/mo | Monthly checkup, provider cleanup, route refresh, one priority rescue/month | Setup customer who keeps shipping |
+
+Stripe links: [$19](https://buy.stripe.com/aFaeVd3Ug3n05pLfSH3sI0u) · [$49](https://buy.stripe.com/28E7sL3Ug3n0bO935V3sI0r) · [$99](https://buy.stripe.com/28EfZheyU2iW4lH35V3sI0q) · [$497](https://buy.stripe.com/aFa14nbmIg9M3hDayn3sI0k) · [$250/mo](https://buy.stripe.com/bJe3cv0I40aO7xTeOD3sI0l)
 
 ## What It Fixes
 
-- OpenClaw/Codex refusing simple actions.
-- Computer Use not working after macOS permissions.
-- Stale OAuth profiles and broken model routes.
-- Excessive token burn from noisy defaults.
-- TUI sessions reused across unrelated project directories.
-- Long-running agent jobs that hang instead of producing auditable status.
-- Generic AI automation offers that need to become concrete buyer outcomes.
+- OpenClaw / Codex refusing simple actions despite "everything is installed"
+- Computer Use not working after macOS permissions are granted
+- Stale OAuth profiles and broken model routes
+- OpenRouter "fallback" silently routing back to the broken primary
+- Excessive token burn from noisy defaults
+- TUI sessions reused across unrelated project directories
+- Long-running agent jobs hanging without auditable status
+- Apple Events from child processes failing with `-1743` from cmux / Warp / host apps
 
-## Buy
+Walkthrough with diagnostic commands per failure mode → [troubleshooting page](https://igorganapolsky.github.io/openclaw-mac-ai-workstation-setup/troubleshooting.html)
 
-- Quick read: $19  
-  https://buy.stripe.com/aFaeVd3Ug3n05pLfSH3sI0u
+## Agent Apps (often a better fit than setup)
 
-- Same-day triage: $49  
-  https://buy.stripe.com/28E7sL3Ug3n0bO935V3sI0r
-
-- Diagnostic: $99  
-  https://buy.stripe.com/28EfZheyU2iW4lH35V3sI0q
-
-- One-time setup: $497  
-  https://buy.stripe.com/aFa14nbmIg9M3hDayn3sI0k
-
-- Optional maintenance: $250/month  
-  https://buy.stripe.com/bJe3cv0I40aO7xTeOD3sI0l
-
-## Agent Apps
-
-The higher-converting offer is an app outcome, not infrastructure:
+If your underlying need is a working business workflow, not infrastructure, the higher-converting offer is an installable agent app:
 
 - WhatsApp Lead Responder
 - Daily Owner Briefing
 - CRM Follow-Up Agent
-- Reddit And GitHub Lead Monitor
+- Reddit & GitHub Lead Monitor
 - Upwork Proposal Assistant
 - AI Agent Security Auditor
 - Durable Agent Workflow
@@ -56,46 +54,18 @@ The higher-converting offer is an app outcome, not infrastructure:
 - Hermes VPS Assistant
 - Agent Consent Layer
 
-Catalog:
-https://igorganapolsky.github.io/openclaw-mac-ai-workstation-setup/agent-app-catalog.html
-
-Security audit:
-./ai-agent-security-audit.md
-
-Governance standard:
-./agent-governance-standard.md
-
-Self-improvement loop:
-./self-improvement-loop.md
-
-MCP security gate:
-./mcp-security-gate.md
-
-Durable workflow standard:
-./durable-agent-workflows.md
-
-Cost-aware routing:
-./cost-aware-routing.md
-
-Hermes VPS rollout:
-./hermes-vps-agent-rollout.md
-
-Agent consent policy:
-./agent-consent-policy.md
-
-Enterprise provider access:
-./enterprise-provider-access.md
+Catalog → https://igorganapolsky.github.io/openclaw-mac-ai-workstation-setup/agent-app-catalog.html
 
 ## Evidence
 
-This offer was created after fixing a real local OpenClaw/Codex setup. Verified:
+Built and verified on a real local stack (2026-05-05):
 
-- OpenClaw gateway healthy.
-- Main coding/business agent routed through Claude Sonnet via OpenRouter.
-- Dedicated `computer-use` agent routed through Codex runtime.
-- macOS Screen Recording and Accessibility granted.
-- Computer Use smoke test completed via `computer-use.list_apps`.
+- OpenClaw gateway healthy
+- Main coding/business agent on Claude Sonnet via OpenRouter
+- Dedicated `computer-use` agent on Codex runtime
+- macOS Screen Recording + Accessibility granted to the correct bundle
+- Computer Use smoke test: `computer-use.list_apps` returned `ACTIVE_APP=WezTerm; APP_COUNT=8`
 
 ## Boundaries
 
-No guaranteed revenue outcomes. No security bypasses. No secret exposure. No sending, publishing, or spending without approval.
+No guaranteed revenue outcomes. No security bypasses. No secret exposure. No outbound messages, posts, or charges without approval.
