@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Codex Computer Use Intel Mac Audit</title>
+    <meta name="description" content="A focused audit for Codex Computer Use unavailable on Intel Macs, missing bundled plugin payloads, macOS permissions, and AI-agent setup failures.">
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: #111318;
+        --muted: #5c6470;
+        --line: #d8dde5;
+        --panel: #f6f8fb;
+        --accent: #0f766e;
+        --accent-dark: #0b5f59;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        color: var(--ink);
+        background: #fff;
+        line-height: 1.5;
+      }
+      .wrap {
+        max-width: 920px;
+        margin: 0 auto;
+        padding: 44px 20px 64px;
+      }
+      header {
+        display: grid;
+        gap: 18px;
+        padding-bottom: 32px;
+        border-bottom: 1px solid var(--line);
+      }
+      .eyebrow {
+        margin: 0;
+        color: var(--accent);
+        font-weight: 700;
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 0;
+      }
+      h1 {
+        margin: 0;
+        max-width: 860px;
+        font-size: clamp(36px, 7vw, 64px);
+        line-height: 1;
+        letter-spacing: 0;
+      }
+      .sub {
+        margin: 0;
+        max-width: 760px;
+        color: var(--muted);
+        font-size: 20px;
+      }
+      section {
+        padding: 32px 0;
+        border-bottom: 1px solid var(--line);
+      }
+      h2 {
+        margin: 0 0 16px;
+        font-size: 26px;
+        letter-spacing: 0;
+      }
+      ul {
+        margin: 0;
+        padding-left: 20px;
+      }
+      li + li { margin-top: 8px; }
+      .cta-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        align-items: center;
+      }
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 48px;
+        padding: 0 18px;
+        border-radius: 6px;
+        background: var(--accent);
+        color: #fff;
+        text-decoration: none;
+        font-weight: 700;
+      }
+      .button:hover { background: var(--accent-dark); }
+      .button.secondary { background: #111318; }
+      .button.secondary:hover { background: #252a33; }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+      }
+      .item {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+        padding: 16px;
+      }
+      .item strong {
+        display: block;
+        margin-bottom: 6px;
+      }
+      .note {
+        border: 1px solid #b8d7d3;
+        border-radius: 8px;
+        background: #eef8f6;
+        padding: 16px;
+        color: #233b39;
+      }
+      code {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 0.95em;
+      }
+      pre {
+        overflow-x: auto;
+        border-radius: 8px;
+        background: #111318;
+        color: #e8eef5;
+        padding: 16px;
+      }
+      footer {
+        padding-top: 28px;
+        color: var(--muted);
+        font-size: 14px;
+      }
+      @media (max-width: 700px) {
+        .grid { grid-template-columns: 1fr; }
+        .sub { font-size: 18px; }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <header>
+        <p class="eyebrow">Codex Computer Use / Intel Mac audit</p>
+        <h1>Find out whether Computer Use is blocked by your setup or by the app bundle.</h1>
+        <p class="sub">A focused Mac AI-agent audit for Codex/OpenClaw users who see Computer Use unavailable, missing plugin payloads, stale permissions, broken provider routes, or unreliable desktop automation.</p>
+        <div class="cta-row">
+          <a class="button" href="https://buy.stripe.com/eVqcN53Ug1eS5pL0XN3sI2A">Buy $499 reliability diagnostic</a>
+          <a class="button secondary" href="https://buy.stripe.com/28E7sL3Ug3n0bO935V3sI0r">Same-day triage for $49</a>
+          <a class="button secondary" href="./troubleshooting.html">Read checklist</a>
+        </div>
+      </header>
+
+      <section>
+        <h2>What This Checks</h2>
+        <div class="grid">
+          <div class="item"><strong>Intel bundle payload</strong>Verify whether the Codex app actually includes the Computer Use plugin/helper for your architecture.</div>
+          <div class="item"><strong>macOS permissions</strong>Separate missing Screen Recording or Accessibility grants from missing app resources.</div>
+          <div class="item"><strong>Plugin cache state</strong>Check bundled marketplace files, local cache, stale installs, and mismatched plugin entries.</div>
+          <div class="item"><strong>Agent routing</strong>Confirm whether the answering agent can see the tools you think are installed.</div>
+          <div class="item"><strong>OpenClaw/Codex split</strong>Keep browser automation, native Mac control, and provider routing as separate failure layers.</div>
+          <div class="item"><strong>Evidence package</strong>Return concise proof and the next action: fix locally, wait for vendor bundle, or route around.</div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Fast Self-Check</h2>
+        <pre><code>uname -m
+find /Applications/Codex.app/Contents/Resources/plugins/openai-bundled -maxdepth 3 -type d -name "*computer*" -o -name "*cua*"
+find ~/.codex/plugins/cache/openai-bundled -maxdepth 3 -type d -name "*computer*" -o -name "*cua*"</code></pre>
+        <p class="note">If those paths contain no Computer Use/CUA payload on Intel, permission resets will not install the missing bundle. The right move is to document the evidence and use a route-around until a compatible payload exists.</p>
+      </section>
+
+      <section>
+        <h2>Good Fit</h2>
+        <ul>
+          <li>Codex settings show Computer Use unavailable on an Intel Mac.</li>
+          <li>MCP lists a server, but the thread cannot use native Mac control tools.</li>
+          <li>You are unsure whether this is a permissions issue, app bundle issue, or stale plugin cache.</li>
+          <li>You want a practical route-around instead of repeating reinstall and cache-clear steps.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Start</h2>
+        <p>Buy triage or the full diagnostic. Send the GitHub issue URL, Mac model, macOS version, Codex/OpenClaw version, and the self-check output.</p>
+        <div class="cta-row">
+          <a class="button" href="https://buy.stripe.com/eVqcN53Ug1eS5pL0XN3sI2A">Buy $499 diagnostic</a>
+          <a class="button secondary" href="https://buy.stripe.com/28E7sL3Ug3n0bO935V3sI0r">Buy $49 triage</a>
+        </div>
+      </section>
+
+      <footer>
+        OpenClaw Mac AI Workstation Setup. No secret exposure, no macOS security bypasses, no revenue guarantees.
+      </footer>
+    </main>
+  </body>
+</html>
