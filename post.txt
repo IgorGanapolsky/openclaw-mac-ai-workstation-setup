@@ -1,0 +1,20 @@
+Most AI-agent failures on a Mac are not "the model is dumb."
+
+They are setup failures:
+
+- stale OAuth token
+- broken model route
+- invalid Gemini/OpenRouter profile
+- Computer Use permissions half-granted
+- same TUI session reused across projects
+- verbose defaults burning context
+
+I turned my own OpenClaw/Codex setup fix into a $99 diagnostic and $497 done-for-you service.
+
+It includes model routing, token-smart defaults, isolated project sessions, Computer Use verification, and a short runbook.
+
+Diagnostic:
+https://buy.stripe.com/28EfZheyU2iW4lH35V3sI0q
+
+Full setup:
+https://buy.stripe.com/aFa14nbmIg9M3hDayn3sI0k
