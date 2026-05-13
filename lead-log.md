@@ -4,3 +4,4 @@
 | 2026-05-12 | Himalaya Scripts | 15 High-Value Prospects | Scaled Outreach | Sent Targeted Offers | Pitched |
 | 2026-05-13 | Zernio API | Twitter | Top-of-funnel | Posted Workstation Service | Published |
 | 2026-05-13 | Zernio API | Threads | Top-of-funnel | Posted Workstation Service | Published |
+| 2026-05-13 | https://github.com/openai/codex/issues/21579 | shalevzorany | Computer Use not appearing in Codex Settings despite plugin/cache/helper all present | Posted individualized diagnostic (LaunchServices/codesign Team ID + alpha-flag-schema + Settings cache) with $19 quick-read CTA: https://github.com/openai/codex/issues/21579#issuecomment-4443885059 | Posted |
