@@ -1,63 +1,170 @@
 #!/usr/bin/env node
+// Discovery-only revenue loop. Runs in CI on a daily cron.
+//
+// Hard rules:
+//   - Does NOT post any comments to any repo.
+//   - Does NOT modify lead-log.md (that's a human-curated artifact).
+//   - Writes drafts to outbound/drafts/<date>/ for human review.
+//   - Writes a summary to reports/gtm/<date>/discovery.md.
+//
+// Replaces an earlier templated-pitch version that posted Hormozi/Voss-style
+// generic CTAs cross-repo. That pattern conflicts with outreach.md's anti-
+// templating rule (documented 0/19 conversion on templated batches) and
+// fabricates "VERIFIED PITCH" status without verification.
+
 import { execSync } from 'node:child_process';
-import { mkdirSync, writeFileSync, appendFileSync, readFileSync } from 'node:fs';
+import { mkdirSync, writeFileSync, readFileSync } from 'node:fs';
+import { join } from 'node:path';
 
 const date = new Date().toISOString().split('T')[0];
-console.log(`Starting Cloud-Native Ralph Revenue Loop for ${date}...`);
-
-// 1. Fetch Real Issues from OpenClaw (Discovery)
-console.log('Fetching live issues from openclaw/openclaw...');
-let issues = [];
-try {
-  const issuesRaw = execSync('gh api "repos/openclaw/openclaw/issues?per_page=10&state=open"').toString();
-  issues = JSON.parse(issuesRaw).filter(i => !i.pull_request && !i.locked);
-} catch (e) {
-  console.error('Failed to fetch issues:', e.message);
+const ghToken = process.env.GH_TOKEN || process.env.GITHUB_TOKEN;
+if (!ghToken) {
+  console.error('GH_TOKEN or GITHUB_TOKEN required');
+  process.exit(1);
 }
 
-// 2. Filter for Pain Points
-const painPoints = [
-  { keywords: ['routing', 'model', 'fallback'], offer: 'Diagnostic', price: '$499', url: 'https://buy.stripe.com/28EfZheyU2iW4lH35V3sI0q' },
-  { keywords: ['auth', 'permission', 'login', 'token'], offer: 'Triage', price: '$49', url: 'https://buy.stripe.com/28E7sL3Ug3n0bO935V3sI0r' },
-  { keywords: ['webchat', 'ui', 'whitespace', 'tui'], offer: 'Diagnostic', price: '$499', url: 'https://buy.stripe.com/28EfZheyU2iW4lH35V3sI0q' },
-  { keywords: ['managed', 'deployment', 'server', 'revenue'], offer: 'Managed System', price: '$1,500', url: 'https://buy.stripe.com/aFa14nbmIg9M3hDayn3sI0k' }
+function gh(args) {
+  try {
+    return execSync(`gh ${args}`, {
+      encoding: 'utf8',
+      env: { ...process.env, GH_TOKEN: ghToken },
+      timeout: 30000,
+    });
+  } catch (e) {
+    console.error(`gh ${args} failed:`, e.message?.slice(0, 200));
+    return null;
+  }
+}
+
+const TARGETS = [
+  {
+    repo: 'openai/codex',
+    query: 'Computer Use macOS',
+    landing: 'troubleshooting.html',
+    utm_source: 'codex-issue',
+  },
+  {
+    repo: 'anthropics/claude-code',
+    query: 'channels discord plugin',
+    landing: 'claude-code-channels-not-working.html',
+    utm_source: 'channels-issue',
+  },
 ];
 
-const leadLogPath = 'lead-log.md';
-const existingLog = (() => { try { return readFileSync(leadLogPath, 'utf8'); } catch { return ''; } })();
+const leadLog = (() => { try { return readFileSync('lead-log.md', 'utf8'); } catch { return ''; } })();
 
-issues.forEach(issue => {
-  const title = issue.title.toLowerCase();
-  const match = painPoints.find(p => p.keywords.some(k => title.includes(k)));
-  
-  if (match && !existingLog.includes(`GitHub #${issue.number}`)) {
-    console.log(`Found matching issue: #${issue.number} - ${issue.title}`);
-    
-    const pitch = `It sounds like you're struggling with ${match.keywords[0]} issues. We standardize these configurations in our ${match.price} ${match.offer}. We guarantee a fixed, smoke-tested config in 24 hours: ${match.url}`;
-    
-    // 3. ACTUAL Headless Outreach
-    try {
-      console.log(`Posting verified pitch to #${issue.number}...`);
-      execSync(`gh issue comment ${issue.number} --repo openclaw/openclaw --body "${pitch}"`);
-      
-      // 4. Log Success
-      const logLine = `| ${date} | GitHub #${issue.number} | ${issue.user.login} | ${issue.title.replace(/\|/g, '')} | ${match.offer} pitched headlessly. | VERIFIED PITCH |\n`;
-      appendFileSync(leadLogPath, logLine);
-    } catch (e) {
-      console.error(`Failed to post comment to #${issue.number}:`, e.message);
-    }
+const allCandidates = [];
+const seenInLog = new Set();
+for (const m of leadLog.matchAll(/github\.com\/([\w.-]+\/[\w.-]+)\/issues\/(\d+)/g)) {
+  seenInLog.add(`${m[1]}#${m[2]}`);
+}
+
+for (const target of TARGETS) {
+  const raw = gh(`issue list --repo ${target.repo} --search ${JSON.stringify(target.query)} --state open --limit 30 --json number,title,createdAt,author,body`);
+  if (!raw) continue;
+  let issues;
+  try { issues = JSON.parse(raw); } catch { continue; }
+  for (const i of issues) {
+    const key = `${target.repo}#${i.number}`;
+    if (seenInLog.has(key)) continue;
+    allCandidates.push({
+      repo: target.repo,
+      number: i.number,
+      title: i.title,
+      author: i.author?.login || 'unknown',
+      createdAt: i.createdAt,
+      body: (i.body || '').slice(0, 800),
+      landing: target.landing,
+      utm_source: target.utm_source,
+    });
   }
-});
+}
 
-// 5. Record Cycle Outcome
-const reportDir = `reports/gtm/${date}-money-today`;
+allCandidates.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+const top = allCandidates.slice(0, 5);
+
+const draftDir = `outbound/drafts/${date}`;
+const reportDir = `reports/gtm/${date}`;
+mkdirSync(draftDir, { recursive: true });
 mkdirSync(reportDir, { recursive: true });
-const packetPath = `${reportDir}/operator-close-packet.md`;
-const reportContent = `# Cloud Operator Close Packet - ${date}
-- Status: Active
-- Issues Scanned: ${issues.length}
-- Verified Pitches: See lead-log.md
-`;
-writeFileSync(packetPath, reportContent);
 
-console.log('Ralph Loop Cycle Complete.');
+for (const c of top) {
+  const slug = `${c.repo.replace('/', '-')}-${c.number}`;
+  const draftPath = join(draftDir, `${slug}.md`);
+  const utm = `?utm_source=${c.utm_source}&utm_medium=funnel&utm_campaign=qr-2026`;
+  const draft = `# Draft for ${c.repo}#${c.number}
+
+- OP: @${c.author}
+- Title: ${c.title}
+- Created: ${c.createdAt}
+- URL: https://github.com/${c.repo}/issues/${c.number}
+- Suggested landing page: \`${c.landing}\`
+
+## Bug report excerpt (first 800 chars)
+
+${c.body || '_(empty body)_'}
+
+---
+
+## Draft comment
+
+<!--
+HUMAN REVIEW REQUIRED. Write a personalized diagnostic below.
+
+Rules:
+- DO NOT fabricate diagnostic commands, log labels, or internal behaviors
+  you cannot verify in the actual source repo or the OP's bug report.
+- Lead with one specific detail from the OP's report (proves you read it).
+- Name one verified check or workaround.
+- Link to https://igorganapolsky.github.io/openclaw-mac-ai-workstation-setup/${c.landing}
+  with UTM tag ${utm}.
+- End with the $19 quick-read CTA: https://buy.stripe.com/aFaeVd3Ug3n05pLfSH3sI0u${utm}
+  and a refund clause.
+- Cap length at ~2000 chars.
+-->
+
+(write here)
+
+---
+
+## Post command (when reviewed and edited)
+
+\`\`\`
+gh issue comment ${c.number} --repo ${c.repo} --body-file ${draftPath}
+\`\`\`
+
+After posting, append a row to \`lead-log.md\` with the issue URL, the OP,
+the symptom mapping, and the resulting comment URL.
+`;
+  writeFileSync(draftPath, draft);
+  console.log(`Drafted: ${draftPath}`);
+}
+
+const reportPath = join(reportDir, 'discovery.md');
+const report = `# Discovery Report — ${date}
+
+## New on-target open issues (not yet referenced in lead-log.md)
+
+${top.length === 0
+  ? '_No new candidates today._'
+  : top.map(c => `- [${c.repo}#${c.number}](https://github.com/${c.repo}/issues/${c.number}) — @${c.author} — ${c.title.slice(0, 100)}`).join('\n')}
+
+## Stats
+
+- Candidates scanned: ${allCandidates.length}
+- Drafts created: ${top.length} (top 5 by recency)
+- Already referenced in lead-log: ${seenInLog.size} unique issue URLs
+
+## Next step
+
+Review each draft in \`outbound/drafts/${date}/\`, write the personalized
+diagnostic in place of the \`(write here)\` placeholder, then run the
+\`gh issue comment\` command at the bottom of the draft. After posting,
+update \`lead-log.md\` manually with the new row.
+
+This script does not post automatically and does not modify lead-log.md.
+`;
+
+writeFileSync(reportPath, report);
+console.log(`Report: ${reportPath}`);
+console.log(`Summary: candidates=${allCandidates.length} drafts=${top.length}`);
