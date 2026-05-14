@@ -53,10 +53,32 @@ const TARGETS = [
 
 const leadLog = (() => { try { return readFileSync('lead-log.md', 'utf8'); } catch { return ''; } })();
 
+// Dedup against TWO sources:
+//   1. Issue URLs in lead-log.md (issues the human has already posted on)
+//   2. Filenames in git log for outbound/drafts/** (issues previously drafted
+//      by the bot — these may have been merged to main, then a lead-log rewrite
+//      by another agent dropped the row, leaving the issue eligible for
+//      re-discovery; the git history is the durable truth)
 const allCandidates = [];
 const seenInLog = new Set();
 for (const m of leadLog.matchAll(/github\.com\/([\w.-]+\/[\w.-]+)\/issues\/(\d+)/g)) {
   seenInLog.add(`${m[1]}#${m[2]}`);
+}
+
+const seenInDrafts = new Set();
+try {
+  const draftHistory = execSync(
+    "git log --all --name-only --pretty=format: -- 'outbound/drafts/**'",
+    { encoding: 'utf8', timeout: 15000 }
+  );
+  // Filenames look like: outbound/drafts/2026-05-14/openai-codex-22694.md
+  for (const m of draftHistory.matchAll(/outbound\/drafts\/[^/]+\/([\w.-]+?)-(\d+)\.md/g)) {
+    // m[1] is "openai-codex" or "anthropics-claude-code"; reconstruct as owner/repo.
+    const repoSlug = m[1].replace(/^([^-]+)-(.+)$/, '$1/$2');
+    seenInDrafts.add(`${repoSlug}#${m[2]}`);
+  }
+} catch {
+  // No git history (e.g. shallow clone) — fall through.
 }
 
 for (const target of TARGETS) {
@@ -66,7 +88,7 @@ for (const target of TARGETS) {
   try { issues = JSON.parse(raw); } catch { continue; }
   for (const i of issues) {
     const key = `${target.repo}#${i.number}`;
-    if (seenInLog.has(key)) continue;
+    if (seenInLog.has(key) || seenInDrafts.has(key)) continue;
     allCandidates.push({
       repo: target.repo,
       number: i.number,
@@ -154,6 +176,7 @@ ${top.length === 0
 - Candidates scanned: ${allCandidates.length}
 - Drafts created: ${top.length} (top 5 by recency)
 - Already referenced in lead-log: ${seenInLog.size} unique issue URLs
+- Already drafted in git history: ${seenInDrafts.size} unique issue URLs
 
 ## Next step
 

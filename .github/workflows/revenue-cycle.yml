@@ -1,8 +1,12 @@
 name: 24/7 Cloud Revenue Engine
 on:
   schedule:
-    - cron: '0 * * * *' # Every hour
-  workflow_dispatch: # Allow manual trigger
+    - cron: '7 13 * * *' # Daily at 09:07 ET in DST. Was hourly; switched
+                          # to daily because the discovery script writes
+                          # to outbound/drafts/<date>/<repo>-<num>.md, and
+                          # subsequent hourly runs on the same date just
+                          # overwrite the same 5 files with the same content.
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -39,18 +43,24 @@ jobs:
           git config --global user.email "bot@openclaw.io"
           git checkout -b "$BRANCH_NAME"
           
-          # Stage files if they exist
+          # Stage discovery artifacts only. Per AGENTS.md/GEMINI.md hard
+          # rules, the bot never modifies lead-log.md or current-revenue-state.md
+          # (those are human-curated). ralph-loop.mjs only writes to
+          # reports/ and outbound/drafts/, so those are the only staging targets.
           [ -d reports ] && git add reports/ || true
           [ -d outbound/drafts ] && git add outbound/drafts/ || true
-          [ -f lead-log.md ] && git add lead-log.md || true
-          [ -f current-revenue-state.md ] && git add current-revenue-state.md || true
-          
+
           if git diff --cached --quiet; then
             echo "No changes to commit"
           else
-            git commit -m "Cloud Cycle: Update revenue state and logs ($DATE) [skip ci]"
+            # NOTE: no [skip ci] — required checks (validate, CodeQL,
+            # GitGuardian, Socket) must run on every bot commit so a
+            # leaked credential or malformed draft is caught before merge.
+            git commit -m "Cloud Cycle: discovery + drafts ($DATE)"
             git push origin "$BRANCH_NAME"
-            gh pr create --title "Cloud Revenue Cycle: $DATE" --body "Automated update from the hourly revenue engine." --base main --head "$BRANCH_NAME"
-            # Auto-merge the PR to keep main updated (if enabled in repo)
+            gh pr create --title "Cloud Revenue Cycle: $DATE" --body "Automated discovery run. Drafts under \`outbound/drafts/<date>/\` and report at \`reports/gtm/<date>/discovery.md\`. No comments posted automatically." --base main --head "$BRANCH_NAME"
+            # Auto-merge once required checks pass. Without [skip ci],
+            # the security scans (GitGuardian/Socket) and validate-site
+            # run on the PR; auto-merge waits for green before merging.
             gh pr merge --auto --squash "$BRANCH_NAME" || echo "Auto-merge failed or not enabled"
           fi
