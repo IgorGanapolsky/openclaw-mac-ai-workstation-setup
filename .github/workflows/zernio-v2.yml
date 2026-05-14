@@ -1,4 +1,4 @@
-name: Zernio Headless Publish
+name: Zernio V2
 on:
   workflow_dispatch:
     inputs:
