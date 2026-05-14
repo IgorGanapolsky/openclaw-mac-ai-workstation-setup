@@ -3,3 +3,4 @@ Tired of missed leads? We build the ,500 Managed Revenue-Ops System (WhatsApp Le
 Are you buying Mac Minis for your AI agency but struggling with OpenClaw setup? We build the ,500 Managed Revenue-Ops System (WhatsApp Lead Responder + CRM integration). Fix your silent refusals today: https://buy.stripe.com/28EfZheyU2iW4lH35V3sI0q
 Struggling with: "macOS AI agent screen recording issues"? Get our Quick Read for $19: https://buy.stripe.com/aFaeVd3Ug3n05pLfSH3sI0u
 Struggling with: "Codex Computer Use permissions error"? Get our Quick Read for $19: https://buy.stripe.com/aFaeVd3Ug3n05pLfSH3sI0u
+Monetization Update: Opened PR #387 in openclaw-console to link Console traffic to the ,500 Managed System offer.
