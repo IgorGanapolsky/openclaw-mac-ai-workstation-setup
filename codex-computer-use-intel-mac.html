@@ -5,6 +5,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Codex Computer Use Intel Mac Audit</title>
     <meta name="description" content="A focused audit for Codex Computer Use unavailable on Intel Macs, missing bundled plugin payloads, macOS permissions, and AI-agent setup failures.">
+    <link rel="canonical" href="https://igorganapolsky.github.io/openclaw-mac-ai-workstation-setup/codex-computer-use-intel-mac.html">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Codex Computer Use on Intel Mac: Why It Fails and How to Diagnose">
+    <meta property="og:url" content="https://igorganapolsky.github.io/openclaw-mac-ai-workstation-setup/codex-computer-use-intel-mac.html">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "Codex Computer Use on Intel Mac: Why It Fails and How to Diagnose",
+      "description": "Why Codex Computer Use is unavailable on Intel Macs — bundled SkyComputerUseClient binary is arm64-only — and how to confirm with `file` and `lipo`.",
+      "author": { "@type": "Person", "name": "Igor Ganapolsky" },
+      "datePublished": "2026-05-07",
+      "dateModified": "2026-05-14",
+      "inLanguage": "en",
+      "url": "https://igorganapolsky.github.io/openclaw-mac-ai-workstation-setup/codex-computer-use-intel-mac.html",
+      "about": ["Codex", "Computer Use", "Intel Mac", "x86_64", "macOS"]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Why is Codex Computer Use unavailable on Intel Mac even though the plugin is enabled?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The bundled SkyComputerUseClient binary inside /Applications/Codex.app/Contents/Resources/plugins/openai-bundled/computer-use/*/ may be arm64-only on some Codex releases. Even when codex mcp list shows computer-use as enabled, the binary can't load on x86_64. Confirm with: file /Applications/Codex.app/Contents/Resources/plugins/openai-bundled/computer-use/*/SkyComputerUseClient — if the output doesn't include x86_64, that's the cause. Workarounds: Rosetta with an x86_64 launcher, or wait for an x86_64 build."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I check if a Codex Computer Use binary supports Intel?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Run `file /Applications/Codex.app/Contents/Resources/plugins/openai-bundled/computer-use/*/SkyComputerUseClient` — a universal binary will list both x86_64 and arm64. An arm64-only binary will only show arm64. You can also use `lipo -info` on the same path for the same answer."
+          }
+        }
+      ]
+    }
+    </script>
     <style>
       :root {
         color-scheme: light;

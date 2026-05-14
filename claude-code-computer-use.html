@@ -5,6 +5,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Claude Code Computer Use checkAccessibility/registerEscape Fix</title>
     <meta name="description" content="Practical triage for Claude Code Computer Use MCP failures on macOS: checkAccessibility undefined, registerEscape undefined, native module path, permissions, and smoke tests.">
+    <link rel="canonical" href="https://igorganapolsky.github.io/openclaw-mac-ai-workstation-setup/claude-code-computer-use.html">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Claude Code Computer Use crashes with checkAccessibility or registerEscape: fix">
+    <meta property="og:url" content="https://igorganapolsky.github.io/openclaw-mac-ai-workstation-setup/claude-code-computer-use.html">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "Claude Code Computer Use: checkAccessibility / registerEscape undefined fix",
+      "description": "Triage path when Claude Code Computer Use MCP connects but tool calls fail with undefined native methods — treat as a native-module path problem first, then verify macOS permissions.",
+      "author": { "@type": "Person", "name": "Igor Ganapolsky" },
+      "datePublished": "2026-05-08",
+      "dateModified": "2026-05-14",
+      "inLanguage": "en",
+      "url": "https://igorganapolsky.github.io/openclaw-mac-ai-workstation-setup/claude-code-computer-use.html",
+      "about": ["Claude Code", "Computer Use", "MCP", "macOS", "Swift"]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Why does Claude Code Computer Use throw 'checkAccessibility is not a function'?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "This usually means the CLI loaded the JavaScript wrapper but couldn't load the underlying native Swift module from the path it expects. Verify the native binary exists at the expected path and that its codesign signature matches the parent Claude Code bundle. macOS Screen Recording / Accessibility permissions being missing is the secondary cause — but the undefined-method error surfaces before the TCC check runs."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why does Claude Code Computer Use fail with registerEscape undefined?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Same root cause as checkAccessibility undefined — the native Swift module that exposes both methods could not load. Run a Node smoke test that requires the native module path directly and lists its exports to confirm the module loads at all."
+          }
+        }
+      ]
+    }
+    </script>
     <style>
       :root { color-scheme: light; --ink:#111827; --muted:#4b5563; --line:#d1d5db; --accent:#0f766e; --bg:#f8fafc; }
       * { box-sizing: border-box; }
