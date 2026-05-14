@@ -157,13 +157,13 @@
       </div>
 
       <div class="symptom">
-        <strong>Cause 6 — Channel notification routing bug (bot idle despite delivered messages)</strong>
-        Channel events arrive at the plugin layer but don't always fire the user-turn handler, so the model never gets called. The bot looks idle while Discord shows your message delivered. Workaround: send a second message to nudge the event loop, or restart the session with <code>--channels</code>. If you can reproduce reliably, capture the plugin log (run with <code>--verbose</code> and tee to a file) and file upstream against <code>claude-plugins-official</code>.
+        <strong>Cause 6 — Channel notification routing fails to reach the session</strong>
+        The plugin reports <code>connected</code> in <code>/mcp</code>, the Discord gateway TCP socket is established, but inbound messages never become user turns. Confirmed pattern from multiple open reports (see anthropics/claude-code <a href="https://github.com/anthropics/claude-code/issues/36837">#36837</a>, <a href="https://github.com/anthropics/claude-code/issues/36657">#36657</a>, <a href="https://github.com/anthropics/claude-code/issues/37287">#37287</a>). To isolate whether the plugin itself emits the notification, run the plugin's standalone server (<code>bun run start</code> against the same Discord token in the plugin's working dir) — if standalone receives the DM and emits a <code>notifications/claude/channel</code> JSON-RPC frame, the bug is in how Claude Code consumes that notification, not in the plugin's Discord gateway. Workaround: restart with <code>--channels</code> (don't resume), or pre-grant tool permissions so prompts don't interrupt the loop.
       </div>
 
       <div class="symptom">
         <strong>Cause 7 — Permission-relay deadlock after Allow/Deny prompt</strong>
-        After approving (or denying) a tool-use permission prompt in the TUI, the resolution isn't always relayed back to the Discord event loop. The session waits for an approval that already happened. To isolate whether it's the prompt relay or a different cause, run with <code>--dangerously-skip-permissions</code> in a trusted local environment for one test session and see if the symptom disappears. (Don't ship that flag in real use.) If yes, the relay is the cause and the durable fix is upstream.
+        After approving (or denying) a tool-use permission prompt in the TUI, the resolution isn't always relayed back to the Discord event loop — the session waits for an approval that already happened. Documented in <a href="https://github.com/anthropics/claude-code/issues/43405">anthropics/claude-code#43405</a>. To isolate whether the relay path is the cause vs. a different failure, run a one-off test session with <code>--dangerously-skip-permissions</code> in a trusted local environment and see if the symptom disappears. (Don't ship that flag in real use — it bypasses every tool-use approval.) If yes, the relay path is the cause and the durable fix is upstream; pre-grant the tool classes you'll use as a workaround so prompts don't fire mid-Discord-exchange.
       </div>
 
       <h2>Why six of these never show an error</h2>
@@ -172,7 +172,7 @@
       <h2>Still stuck after the seven causes?</h2>
 
       <div class="note">
-        <strong>$19 Quick Read</strong> — send your channels session log, the output of <code>ps -axo pid,command | grep claude</code>, the <code>/discord:access list</code> result (if it works), and a one-line description of what you've already tried. Get back the likely root cause (which of the seven above), the next thing to try, and whether you actually need the higher tiers. Same day during US business hours. <em>Full refund if I can't name a likely root cause.</em>
+        <strong>$19 Quick Read</strong> — send what you have: the output of <code>ps -axo pid,command | grep -i claude</code>, what <code>/mcp</code> reports for the plugin status, the contents of the plugin's <code>access.json</code> (redact bot tokens), and a one-line description of what you've already tried. Get back the likely root cause (which of the seven above), the next thing to try, and whether you need the higher tiers. Same day during US business hours. <em>Full refund if I can't name a likely root cause.</em>
         <br><br>
         <a class="button" href="https://buy.stripe.com/aFaeVd3Ug3n05pLfSH3sI0u?utm_source=channels&utm_medium=funnel&utm_campaign=qr-2026">Buy quick read $19</a>
         <a class="button" href="https://buy.stripe.com/28E7sL3Ug3n0bO935V3sI0r?utm_source=channels&utm_medium=funnel&utm_campaign=triage-2026">Same-day triage $49</a>
