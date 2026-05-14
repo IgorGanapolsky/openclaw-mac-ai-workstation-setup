@@ -1,0 +1,14 @@
+name: Zernio Headless Publish
+on:
+  workflow_dispatch:
+    inputs:
+      offer:
+        description: 'The offer to publish'
+        required: true
+        type: string
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Publish via Zernio
+        run: echo "Publishing offer via Zernio to LinkedIn, Threads, Bluesky... Offer: ${{ github.event.inputs.offer }}"
