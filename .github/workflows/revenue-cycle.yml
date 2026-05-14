@@ -34,11 +34,20 @@ jobs:
 
       - name: Create Update PR
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Use PAT for both the push and the PR create — without this the
+          # PR opens as github-actions[bot] and GH's recursive-trigger guard
+          # blocks CI/CodeQL from running on it, leaving --auto-merge to
+          # wait forever for required checks that never fire.
+          GH_TOKEN: ${{ secrets.OUTREACH_TOKEN }}
+          OUTREACH_TOKEN: ${{ secrets.OUTREACH_TOKEN }}
         run: |
           set -e
           DATE=$(date +%Y%m%d-%H%M)
           BRANCH_NAME="revenue-update-$DATE"
+          # Rewrite remote so git push uses the PAT identity, not the default
+          # GITHUB_TOKEN. This makes the PR appear from the PAT owner and
+          # triggers downstream workflows (CI/CodeQL) on the resulting PR.
+          git remote set-url origin "https://x-access-token:${OUTREACH_TOKEN}@github.com/${{ github.repository }}.git"
           git config --global user.name "OpenClaw Revenue Bot"
           git config --global user.email "bot@openclaw.io"
           git checkout -b "$BRANCH_NAME"
