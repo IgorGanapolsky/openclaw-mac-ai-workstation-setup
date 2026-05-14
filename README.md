@@ -14,7 +14,13 @@ If you came in from a GitHub issue with a specific bug, jump to **$49 same-day t
 
 → https://buy.stripe.com/28E7sL3Ug3n0bO935V3sI0r
 
-**Free, no signup:** `node scripts/self-diagnose.mjs` runs the read-only checks for all six known root causes, redacts common secrets, and writes a single bundle to your Desktop. Review it yourself or paste it into the $19 quick read. (Claude Max 5x subscribers: starting **June 15, 2026** your plan includes a $100/month Agent SDK credit for `claude -p` — a future `--analyze` flag will run on that credit.)
+**Free, no signup, one command:**
+
+```sh
+curl -fsSL https://igorganapolsky.github.io/openclaw-mac-ai-workstation-setup/scripts/self-diagnose.mjs | node
+```
+
+Runs the read-only checks for all six known root causes, redacts common secrets, and writes a single bundle to your Desktop. Review it yourself or paste it into the $19 quick read. (Claude Max 5x subscribers: starting **June 15, 2026** your plan includes a $100/month Agent SDK credit for `claude -p` — a future `--analyze` flag will run on that credit.)
 
 ## The Ladder
 
