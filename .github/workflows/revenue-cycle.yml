@@ -41,6 +41,7 @@ jobs:
           
           # Stage files if they exist
           [ -d reports ] && git add reports/ || true
+          [ -d outbound/drafts ] && git add outbound/drafts/ || true
           [ -f lead-log.md ] && git add lead-log.md || true
           [ -f current-revenue-state.md ] && git add current-revenue-state.md || true
           

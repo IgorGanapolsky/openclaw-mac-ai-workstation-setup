@@ -1,0 +1,36 @@
+name: IndexNow ping
+on:
+  push:
+    branches: [main]
+    paths:
+      - '**/*.html'
+      - 'sitemap.xml'
+
+permissions:
+  contents: read
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Ping IndexNow (Bing / Yandex / Seznam)
+        run: |
+          set -e
+          curl -fsSX POST "https://api.indexnow.org/IndexNow" \
+            -H "Content-Type: application/json; charset=utf-8" \
+            -d '{
+              "host": "igorganapolsky.github.io",
+              "key": "65f8d0ef3b53207166db38ffcfb69ac7",
+              "keyLocation": "https://igorganapolsky.github.io/openclaw-mac-ai-workstation-setup/65f8d0ef3b53207166db38ffcfb69ac7.txt",
+              "urlList": [
+                "https://igorganapolsky.github.io/openclaw-mac-ai-workstation-setup/",
+                "https://igorganapolsky.github.io/openclaw-mac-ai-workstation-setup/troubleshooting.html",
+                "https://igorganapolsky.github.io/openclaw-mac-ai-workstation-setup/claude-code-channels-not-working.html",
+                "https://igorganapolsky.github.io/openclaw-mac-ai-workstation-setup/codex-computer-use-intel-mac.html",
+                "https://igorganapolsky.github.io/openclaw-mac-ai-workstation-setup/claude-code-computer-use.html",
+                "https://igorganapolsky.github.io/openclaw-mac-ai-workstation-setup/computer-use-plugin-unavailable.html",
+                "https://igorganapolsky.github.io/openclaw-mac-ai-workstation-setup/quick-read.html",
+                "https://igorganapolsky.github.io/openclaw-mac-ai-workstation-setup/agent-app-catalog.html"
+              ]
+            }' -w "\nIndexNow HTTP %{http_code}\n"
