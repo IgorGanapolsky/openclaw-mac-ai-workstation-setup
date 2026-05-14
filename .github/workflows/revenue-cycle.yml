@@ -26,12 +26,47 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          set -e
           # 1. Execute the discovery and outreach script
           node scripts/ralph-loop.mjs
-          
-          # 2. Commit and push the updated logs/packets
+
+          # 2. Stage only files that actually exist (the prior workflow hard-coded
+          #    current-revenue-state.md which doesn't exist in main, causing a
+          #    fatal pathspec failure every hour). Add reports/ and lead-log.md
+          #    if they exist; add current-revenue-state.md only if present.
           git config --global user.name "OpenClaw Revenue Bot"
           git config --global user.email "bot@openclaw.io"
-          git add reports/ lead-log.md current-revenue-state.md
-          git commit -m "Cloud Cycle: Update revenue state and logs [skip ci]" || echo "No changes to commit"
-          git push origin main
+          [ -d reports ] && git add reports/ || true
+          [ -f lead-log.md ] && git add lead-log.md || true
+          [ -f current-revenue-state.md ] && git add current-revenue-state.md || true
+
+          # 3. Commit only if something was actually staged
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Cloud Cycle: Update revenue state and logs [skip ci]"
+            git push origin main
+          fi
+
+      - name: Ping IndexNow for any HTML change in this run
+        if: success()
+        run: |
+          set -e
+          # Only fire IndexNow if HTML files changed in the latest commit
+          if git log -1 --name-only --pretty=format: | grep -E '\.html$' >/dev/null; then
+            echo "HTML changed; pinging IndexNow"
+            curl -fsSX POST "https://api.indexnow.org/IndexNow" \
+              -H "Content-Type: application/json; charset=utf-8" \
+              -d '{
+                "host": "igorganapolsky.github.io",
+                "key": "65f8d0ef3b53207166db38ffcfb69ac7",
+                "keyLocation": "https://igorganapolsky.github.io/openclaw-mac-ai-workstation-setup/65f8d0ef3b53207166db38ffcfb69ac7.txt",
+                "urlList": [
+                  "https://igorganapolsky.github.io/openclaw-mac-ai-workstation-setup/",
+                  "https://igorganapolsky.github.io/openclaw-mac-ai-workstation-setup/troubleshooting.html",
+                  "https://igorganapolsky.github.io/openclaw-mac-ai-workstation-setup/claude-code-channels-not-working.html"
+                ]
+              }' -w "\nIndexNow HTTP %{http_code}\n"
+          else
+            echo "No HTML changes; skipping IndexNow"
+          fi
