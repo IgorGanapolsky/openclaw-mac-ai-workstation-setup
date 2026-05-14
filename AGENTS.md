@@ -23,3 +23,8 @@ Act as **CTO** for this repo. This is a public revenue asset for OpenClaw/Codex/
 ## Completion Protocol
 Say: **"Done merging PRs. CI passing. System hygiene complete. Ready for next session."**
 Include branch count before/after, merged PR list, and CI status proof.
+
+## Automation Boundaries
+- The `revenue-cycle.yml` cron is allowed to commit only **data and stub-content** (reports, drafts, lead-log, revenue-state). It must never modify code in `scripts/`, `.github/workflows/`, or `*.html` without a human review path.
+- The `ralph-loop.mjs` discovery script must **never post** to any external repo. Drafts go to `outbound/drafts/<date>/` for human review; the script does not modify `lead-log.md`.
+- Outbound posts to other repos require human authorship — bot posts are templated by definition and the documented conversion rate on templated batches is 0/19.
