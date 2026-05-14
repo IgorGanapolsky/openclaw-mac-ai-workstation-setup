@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Claude Code Channels not working? Seven real causes for the Discord bot going silent (2026)</title>
+    <meta name="description" content="Why the Claude Code Channels Discord plugin connects but stays idle, fails to receive messages, breaks on session resume, or halts on permission prompts — with the exact thing to check per cause.">
+    <link rel="canonical" href="https://igorganapolsky.github.io/openclaw-mac-ai-workstation-setup/claude-code-channels-not-working.html">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Claude Code Channels not working: seven real causes for the Discord bot going silent">
+    <meta property="og:description" content="The seven friction points that break the Claude Code Channels Discord plugin — Message Content Intent, --channels flag, pairing, shared server, session resume, notification bug, permission relay — with what to check per cause.">
+    <meta property="og:url" content="https://igorganapolsky.github.io/openclaw-mac-ai-workstation-setup/claude-code-channels-not-working.html">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "Claude Code Channels not working: seven real causes for the Discord bot going silent",
+      "description": "Why the Claude Code Channels Discord plugin connects but stays idle, fails to receive messages, breaks on session resume, or halts on permission prompts — with what to check per cause.",
+      "author": { "@type": "Person", "name": "Igor Ganapolsky" },
+      "datePublished": "2026-05-14",
+      "dateModified": "2026-05-14",
+      "inLanguage": "en",
+      "url": "https://igorganapolsky.github.io/openclaw-mac-ai-workstation-setup/claude-code-channels-not-working.html",
+      "about": ["Claude Code", "Channels", "Discord", "MCP", "Anthropic", "OpenClaw"],
+      "mainEntityOfPage": "https://igorganapolsky.github.io/openclaw-mac-ai-workstation-setup/claude-code-channels-not-working.html"
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Why does the Claude Code Channels Discord bot receive empty messages?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The Discord application's 'Message Content Intent' must be explicitly enabled in the Discord Developer Portal under Bot > Privileged Gateway Intents. Without it, Discord delivers events to your bot but redacts the message content field, so the Claude Code plugin sees activity but no text to respond to. Fix: open https://discord.com/developers/applications, select the application, go to Bot, toggle Message Content Intent on, save, then restart Claude Code with --channels."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why does the Discord plugin not load when Claude Code starts?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The --channels flag is required at Claude Code startup; the plugin will not auto-load. Launch with: claude --channels plugin:discord@claude-plugins-official. Confirm the flag is on the running process with: ps -axo pid,command | grep claude | grep channels. If the flag is missing, the bot connects to Discord at the network layer but Claude Code never wires it into the session."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why does the Discord bot accept a pairing code but still not answer?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Pairing has two halves: the bot must receive a DM from your Discord account first, returning a pairing code; then you run /discord:access pair YOUR_CODE inside Claude Code. If either half is skipped — or you run the pair command before the bot has issued a code for that DM — the access record is incomplete and the bot stays silent on incoming messages. Fix: DM the bot, copy the new code, then immediately run /discord:access pair in Claude Code."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why does the Discord bot not respond to DMs from my account?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Discord requires your account and the bot to share at least one server before DM history is delivered to either party. If you invited the bot to a server you've since left, or generated an OAuth invite for a server you're not a member of, DMs are silently dropped. Fix: confirm you and the bot are both members of at least one Discord server, then re-pair."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why does Claude Code Channels stop working after I resume a session?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Session resumption rehydrates the Claude Code session from disk but does not reattach the channels plugin's network bindings — the Discord WebSocket connection isn't part of the persisted state. The session looks healthy in the TUI but the bot is functionally disconnected. Fix: start a fresh Claude Code session with --channels rather than resuming one that previously had the plugin attached."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why does the bot stay idle even though Discord shows my message was delivered?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "There is a documented notification-routing bug where channel events arrive at Claude Code's plugin layer but don't fire the user-turn handler, so the model never gets called. The session appears idle even though message events are queued. Workaround: send a second message to nudge the event loop, or restart the session with --channels. If reproducible, capture the plugin log and file against claude-plugins-official."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why does the bot stop replying after I approve a permission prompt?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The permission-relay path in the channels plugin can deadlock after an Allow/Deny prompt resolves — the prompt response acknowledges to the TUI but isn't relayed back into the Discord event loop, so the session waits for an approval that already happened. Workaround: use --dangerously-skip-permissions during initial testing in a trusted environment to isolate whether it's the prompt relay or another cause. Long-term, the fix is upstream in the plugin."
+          }
+        }
+      ]
+    }
+    </script>
+    <style>
+      body { margin: 0; font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #111318; background: #fff; line-height: 1.6; }
+      main { max-width: 860px; margin: 0 auto; padding: 44px 20px 72px; }
+      h1 { font-size: clamp(34px, 6vw, 56px); line-height: 1.05; margin: 0 0 18px; letter-spacing: -0.01em; }
+      h2 { margin-top: 40px; font-size: 26px; letter-spacing: 0; }
+      p, li { font-size: 18px; }
+      .lead { color: #5c6470; font-size: 21px; max-width: 760px; }
+      code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 15px; }
+      pre { background: #111318; color: #e8eef5; padding: 16px; border-radius: 8px; overflow-x: auto; }
+      code { background: #f1f3f6; padding: 1px 5px; border-radius: 3px; }
+      pre code { background: transparent; padding: 0; }
+      a.button { display: inline-flex; min-height: 48px; align-items: center; justify-content: center; padding: 0 18px; border-radius: 6px; background: #0f766e; color: white; text-decoration: none; font-weight: 700; margin: 4px 6px 4px 0; }
+      a.button.tertiary { background: transparent; color: #0f766e; border: 1px solid #0f766e; }
+      .note { border: 1px solid #d8dde5; border-radius: 8px; background: #f6f8fb; padding: 16px; margin: 16px 0; }
+      .symptom { border-left: 4px solid #0f766e; padding: 4px 14px; margin: 18px 0; background: #f6fbfa; }
+      .symptom strong { display: block; margin-bottom: 4px; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Claude Code Channels not working? The Discord bot connects, then goes silent — and there are seven real reasons.</h1>
+      <p class="lead">The Channels plugin pairs your Claude Code session with Discord. When it breaks — bot receives empty messages, plugin doesn't load, pairing succeeds but no replies, session resume kills it — the cause is almost always one of seven specific things. None of them are "reinstall the plugin."</p>
+
+      <p>
+        <a class="button" href="https://buy.stripe.com/aFaeVd3Ug3n05pLfSH3sI0u?utm_source=channels&utm_medium=funnel&utm_campaign=qr-2026">Send your channels log, get root cause — $19 quick read</a>
+        <a class="button tertiary" href="#causes">Or read the seven causes below</a>
+        <br>
+        <span style="color:#5c6470;font-size:14px;display:inline-block;margin-top:8px;">$19 = one root-cause note + next command. Same-day reply during US business hours. Full refund if I can't name a likely root cause from your bundle.</span>
+      </p>
+
+      <div class="note" id="self-serve">
+        <strong>Free self-serve bundle, one command.</strong>
+        <pre><code>curl -fsSL https://igorganapolsky.github.io/openclaw-mac-ai-workstation-setup/scripts/self-diagnose.mjs | node</code></pre>
+        Captures your Codex / Claude Code / OpenClaw posture into a redacted bundle. Built for the Computer Use class of failures but the captured surfaces (running bundles, codesign, env, session list) are exactly what's also needed to triage Channels-plugin issues.
+      </div>
+
+      <h2 id="causes">The seven real causes (in the order they most often break things)</h2>
+
+      <div class="symptom">
+        <strong>Cause 1 — Message Content Intent disabled in the Discord Developer Portal</strong>
+        Discord requires the bot's application to explicitly enable the "Message Content Intent" privileged intent before it will deliver actual message text. Without it, Discord delivers the event but redacts the content field — the Claude Code plugin sees activity, gets nothing to respond to, and stays silent. Open <code>https://discord.com/developers/applications</code>, select the app, go to Bot, toggle <em>Message Content Intent</em> on, save, restart Claude Code with <code>--channels</code>.
+      </div>
+
+      <div class="symptom">
+        <strong>Cause 2 — Missing <code>--channels</code> flag on startup</strong>
+        The plugin does not auto-load. Launch with the flag attached or it stays dormant:
+        <pre><code>claude --channels plugin:discord@claude-plugins-official</code></pre>
+        Confirm the flag is on the running process:
+        <pre><code>ps -axo pid,command | grep -i claude | grep -i channels</code></pre>
+        If the result is empty, the running session has no channels plugin attached regardless of what the TUI says.
+      </div>
+
+      <div class="symptom">
+        <strong>Cause 3 — Pairing flow done in the wrong order</strong>
+        Pairing requires two halves in a specific order: (a) you DM the bot from your Discord account, the bot replies with a fresh pairing code; (b) you run <code>/discord:access pair YOUR_CODE</code> in Claude Code <em>immediately</em>, while that code is still valid. Running the pair command first, or letting the code expire, leaves the access record incomplete and the bot stays mute on every later message.
+      </div>
+
+      <div class="symptom">
+        <strong>Cause 4 — Bot and your Discord account don't share a server</strong>
+        Discord drops DMs silently if the two parties don't share at least one server. Easy to miss when you generate an OAuth invite link, send the bot to a server you've since left, then DM the bot from your main account. The bot is "online" but DMs to it never arrive. Fix: confirm at least one shared server, then re-pair.
+      </div>
+
+      <div class="symptom">
+        <strong>Cause 5 — Session resumption silently detaches the plugin</strong>
+        Claude Code session resume rehydrates the conversation state from disk, but the Discord WebSocket connection isn't part of that persisted state. After a resume, the session looks fine in the TUI; the bot is functionally disconnected. There is no error. Fix: don't resume — start a fresh session with <code>--channels</code> when you want Channels active.
+      </div>
+
+      <div class="symptom">
+        <strong>Cause 6 — Channel notification routing bug (bot idle despite delivered messages)</strong>
+        Channel events arrive at the plugin layer but don't always fire the user-turn handler, so the model never gets called. The bot looks idle while Discord shows your message delivered. Workaround: send a second message to nudge the event loop, or restart the session with <code>--channels</code>. If you can reproduce reliably, capture the plugin log (run with <code>--verbose</code> and tee to a file) and file upstream against <code>claude-plugins-official</code>.
+      </div>
+
+      <div class="symptom">
+        <strong>Cause 7 — Permission-relay deadlock after Allow/Deny prompt</strong>
+        After approving (or denying) a tool-use permission prompt in the TUI, the resolution isn't always relayed back to the Discord event loop. The session waits for an approval that already happened. To isolate whether it's the prompt relay or a different cause, run with <code>--dangerously-skip-permissions</code> in a trusted local environment for one test session and see if the symptom disappears. (Don't ship that flag in real use.) If yes, the relay is the cause and the durable fix is upstream.
+      </div>
+
+      <h2>Why six of these never show an error</h2>
+      <p>Causes 1, 3, 4, 5, 6 produce a session that <em>looks</em> healthy in both Discord and Claude Code. No error message, no crash, no log entry that points at the failure. You're debugging absence-of-output, not a stack trace. That's why the standard "uninstall, reinstall, restart" approach almost never resolves them — the failure surface is in configuration or topology, not in the code path that errors out loudly.</p>
+
+      <h2>Still stuck after the seven causes?</h2>
+
+      <div class="note">
+        <strong>$19 Quick Read</strong> — send your channels session log, the output of <code>ps -axo pid,command | grep claude</code>, the <code>/discord:access list</code> result (if it works), and a one-line description of what you've already tried. Get back the likely root cause (which of the seven above), the next thing to try, and whether you actually need the higher tiers. Same day during US business hours. <em>Full refund if I can't name a likely root cause.</em>
+        <br><br>
+        <a class="button" href="https://buy.stripe.com/aFaeVd3Ug3n05pLfSH3sI0u?utm_source=channels&utm_medium=funnel&utm_campaign=qr-2026">Buy quick read $19</a>
+        <a class="button" href="https://buy.stripe.com/28E7sL3Ug3n0bO935V3sI0r?utm_source=channels&utm_medium=funnel&utm_campaign=triage-2026">Same-day triage $49</a>
+      </div>
+
+      <p style="color:#5c6470;font-size:15px;margin-top:32px;">Boundaries: no revenue guarantees, no secret exposure. Redact bot tokens and Discord tokens before sending logs. The <code>--dangerously-skip-permissions</code> flag should only be used in trusted local testing environments.</p>
+
+      <p style="color:#5c6470;font-size:15px;">Related: <a href="./troubleshooting.html">Six causes for Codex Computer Use failures on macOS</a> · <a href="./claude-code-computer-use.html">Claude Code Computer Use checkAccessibility / registerEscape fix</a> · <a href="https://igorganapolsky.github.io/openclaw-console/">OpenClaw Console (free, OSS) — broader agent runtime with 50+ skills</a></p>
+    </main>
+  </body>
+</html>

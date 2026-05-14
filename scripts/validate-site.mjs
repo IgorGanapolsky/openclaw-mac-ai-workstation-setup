@@ -7,6 +7,7 @@ const allowedExternal = [
   "https://buy.stripe.com/",
   "https://github.com/",
   "https://igorganapolsky.github.io/",
+  "https://www.kdnuggets.com/",
   "mailto:",
 ];
 const requiredFiles = [
@@ -14,6 +15,7 @@ const requiredFiles = [
   "index.html",
   "quick-read.html",
   "troubleshooting.html",
+  "claude-code-channels-not-working.html",
   "offer.md",
   "fulfillment.md",
   "stripe.md",
