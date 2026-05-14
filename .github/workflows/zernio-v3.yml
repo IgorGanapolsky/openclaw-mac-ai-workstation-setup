@@ -1,0 +1,15 @@
+name: Zernio Push Publish
+on:
+  push:
+    paths:
+      - 'reports/gtm/*/outbound-queue.md'
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Publish via Zernio
+        run: |
+          OFFER=$(cat reports/gtm/*/outbound-queue.md | tail -n 1)
+          echo "Publishing offer via Zernio: $OFFER"
