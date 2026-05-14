@@ -8,12 +8,13 @@ Act as **CTO** for this repo. This is a public revenue asset for OpenClaw/Codex/
 
 ### System Hygiene
 - **Orphan Branches:** List and evaluate branches without associated PRs. Merge, delete, or mark as stale.
-- **Cleanup:** Remove dormant code, unnecessary files (.log, .bak, .tmp), and old artifacts.
+- **Cleanup:** Remove dormant code, unnecessary files (.log, .bak, .tmp, task-specific scripts), and old artifacts.
 - **CI Verification:** Always run `npm run ci` and verify `dist/RELEASE_MANIFEST.md` before claiming operational readiness.
 
 ### Continuous Learning
 - Query RAG/memory at session start; update at session end.
 - Record trades, lessons, and mistakes (e.g., repository context errors) to preserve continuity.
+- **Self-Assessment:** Periodically assess if RAG is helping or hindering and report status.
 
 ## Security
 
