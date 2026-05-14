@@ -39,6 +39,12 @@
         <a class="button tertiary" href="#checklist">Or read the free checklist below</a>
       </p>
 
+      <div class="note" id="self-serve">
+        <strong>Free self-serve bundle.</strong> If you'd rather run the diagnostic yourself first, clone this repo and run <code>node scripts/self-diagnose.mjs</code>. It executes the read-only checks for all six symptoms, redacts common secrets, and writes a single bundle to <code>~/Desktop/openclaw-diagnostic-&lt;timestamp&gt;.txt</code>. Review it yourself, or paste it into the $19 quick read for a confirmed root cause.
+        <br><br>
+        <span style="color:#5c6470;font-size:15px;">Note for Claude Max 5x subscribers: starting <strong>June 15, 2026</strong> your plan includes a $100/month Agent SDK credit for <code>claude -p</code> and SDK usage. A future <code>--analyze</code> flag will synthesize the bundle on that credit; today the script bundles only.</span>
+      </div>
+
       <h2 id="checklist">The six real causes (in order of how often they actually break things)</h2>
 
       <div class="symptom">
