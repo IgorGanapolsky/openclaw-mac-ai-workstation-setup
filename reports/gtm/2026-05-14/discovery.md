@@ -2,17 +2,18 @@
 
 ## New on-target open issues (not yet referenced in lead-log.md)
 
-- [openai/codex#22694](https://github.com/openai/codex/issues/22694) — @lattwood — Computer Use has an undocumented hard requirement on macOS 26.0
-- [openai/codex#22628](https://github.com/openai/codex/issues/22628) — @aleksei666777 — Codex Desktop: spawned subagents with Computer Use receive image omitted while parent thread receive
-- [openai/codex#22184](https://github.com/openai/codex/issues/22184) — @tomchang-vecml — Cannot Set Effort Level For New Session
-- [anthropics/claude-code#58084](https://github.com/anthropics/claude-code/issues/58084) — @Nazim22 — Plugin install pipeline strips top-level dotfiles (.mcp.json, .npmrc), breaking channel plugins
-- [anthropics/claude-code#58018](https://github.com/anthropics/claude-code/issues/58018) — @KAGDACI — VS Code extension 2.1.138 drops notifications/claude/channel — Telegram plugin polls but messages ne
+- [openai/codex#21987](https://github.com/openai/codex/issues/21987) — @Bughunter-Geek — Codex Beta main process spins at ~290% CPU after large Computer Use thread
+- [openai/codex#21936](https://github.com/openai/codex/issues/21936) — @naveen-malla — Chrome plugin missing from Codex Plugin Directory on macOS due to stale bundled marketplace cache
+- [openai/codex#21846](https://github.com/openai/codex/issues/21846) — @kmufti7 — Codex Computer Use fails on macOS 26.4.1 with code-signing invalid helper
+- [openai/codex#21668](https://github.com/openai/codex/issues/21668) — @GGBondBlueWhale — Privacy/security risk: Codex Computer Use captures wrong macOS Space/window instead of target app
+- [openai/codex#21610](https://github.com/openai/codex/issues/21610) — @mzanm — Computer Use and  chrome plugins and tabs not visible  on macOS in Saudi Arabia
 
 ## Stats
 
-- Candidates scanned: 60
+- Candidates scanned: 55
 - Drafts created: 5 (top 5 by recency)
 - Already referenced in lead-log: 0 unique issue URLs
+- Already drafted in git history: 5 unique issue URLs
 
 ## Next step
 
