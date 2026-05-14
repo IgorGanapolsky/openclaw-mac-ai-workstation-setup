@@ -4,13 +4,14 @@ on:
     - cron: '0 * * * *' # Every hour
   workflow_dispatch: # Allow manual trigger
 
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
 jobs:
   revenue-cycle:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      issues: write
-      pull-requests: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -22,51 +23,33 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Run Ralph Loop
+      - name: Run Ralph Loop (Verified Outreach)
+        env:
+          GITHUB_TOKEN: ${{ secrets.OUTREACH_TOKEN }}
+        run: node scripts/ralph-loop.mjs
+
+      - name: Create Update PR
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -e
-          # 1. Execute the discovery and outreach script
-          node scripts/ralph-loop.mjs
-
-          # 2. Stage only files that actually exist (the prior workflow hard-coded
-          #    current-revenue-state.md which doesn't exist in main, causing a
-          #    fatal pathspec failure every hour). Add reports/ and lead-log.md
-          #    if they exist; add current-revenue-state.md only if present.
+          DATE=$(date +%Y%m%d-%H%M)
+          BRANCH_NAME="revenue-update-$DATE"
           git config --global user.name "OpenClaw Revenue Bot"
           git config --global user.email "bot@openclaw.io"
+          git checkout -b "$BRANCH_NAME"
+          
+          # Stage files if they exist
           [ -d reports ] && git add reports/ || true
           [ -f lead-log.md ] && git add lead-log.md || true
           [ -f current-revenue-state.md ] && git add current-revenue-state.md || true
-
-          # 3. Commit only if something was actually staged
+          
           if git diff --cached --quiet; then
             echo "No changes to commit"
           else
-            git commit -m "Cloud Cycle: Update revenue state and logs [skip ci]"
-            git push origin main
-          fi
-
-      - name: Ping IndexNow for any HTML change in this run
-        if: success()
-        run: |
-          set -e
-          # Only fire IndexNow if HTML files changed in the latest commit
-          if git log -1 --name-only --pretty=format: | grep -E '\.html$' >/dev/null; then
-            echo "HTML changed; pinging IndexNow"
-            curl -fsSX POST "https://api.indexnow.org/IndexNow" \
-              -H "Content-Type: application/json; charset=utf-8" \
-              -d '{
-                "host": "igorganapolsky.github.io",
-                "key": "65f8d0ef3b53207166db38ffcfb69ac7",
-                "keyLocation": "https://igorganapolsky.github.io/openclaw-mac-ai-workstation-setup/65f8d0ef3b53207166db38ffcfb69ac7.txt",
-                "urlList": [
-                  "https://igorganapolsky.github.io/openclaw-mac-ai-workstation-setup/",
-                  "https://igorganapolsky.github.io/openclaw-mac-ai-workstation-setup/troubleshooting.html",
-                  "https://igorganapolsky.github.io/openclaw-mac-ai-workstation-setup/claude-code-channels-not-working.html"
-                ]
-              }' -w "\nIndexNow HTTP %{http_code}\n"
-          else
-            echo "No HTML changes; skipping IndexNow"
+            git commit -m "Cloud Cycle: Update revenue state and logs ($DATE) [skip ci]"
+            git push origin "$BRANCH_NAME"
+            gh pr create --title "Cloud Revenue Cycle: $DATE" --body "Automated update from the hourly revenue engine." --base main --head "$BRANCH_NAME"
+            # Auto-merge the PR to keep main updated (if enabled in repo)
+            gh pr merge --auto --squash "$BRANCH_NAME" || echo "Auto-merge failed or not enabled"
           fi
