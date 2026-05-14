@@ -13,3 +13,4 @@ Pitch to @bill492 (#81903): "Saw your issue with Slack drafts being replaced by 
 Pitch to @jalehman (#81906): "Dealing with context window mismatches between Codex and OpenAI runtime is a classic token-burn trap. Our 9 Quick Read gives you the exact JSON path to sync them: https://buy.stripe.com/aFaeVd3Ug3n05pLfSH3sI0u"
 
 Pitch to @jbetala7 (#81907): "If your webchat is losing whitespace, your agent's thinking is getting mangled. We optimize local TUI/Web UI rendering in our 99 Diagnostic to ensure your code stays clean. Get the high-ROI fix: https://buy.stripe.com/28EfZheyU2iW4lH35V3sI0q"
+Struggling with: "OpenClaw refuses to act"? Get our Diagnostic for $499: https://buy.stripe.com/28EfZheyU2iW4lH35V3sI0q
