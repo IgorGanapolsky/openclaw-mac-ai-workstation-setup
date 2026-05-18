@@ -1,0 +1,38 @@
+name: SEO daily snapshot
+on:
+  schedule:
+    - cron: '17 13 * * *' # Daily at 09:17 ET in DST, 10 min after revenue-cycle
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+
+      - name: Run SEO probe
+        run: node scripts/seo-monitor.mjs
+
+      - name: Commit snapshot
+        run: |
+          set -e
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          DATE=$(date -u +%Y-%m-%d)
+          if [ -f "reports/seo/${DATE}.md" ]; then
+            git add "reports/seo/${DATE}.md"
+            if ! git diff --staged --quiet; then
+              git commit -m "chore(seo): daily snapshot ${DATE}"
+              git push
+            fi
+          fi

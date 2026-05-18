@@ -32,3 +32,29 @@
 | Date | Issue | OP | Action | Status |
 | --- | --- | --- | --- | --- |
 | 2026-05-18 | https://github.com/openai/codex/issues/22927 | @Scubasteve417 | Help-only cross-reference to #21579 marketplace-regeneration root cause. No Stripe link in body; soft landing-page link parenthetical. | **POSTED** (Comment: 4480331215) |
+| 2026-05-18 | https://github.com/openai/codex/issues/22949 | @river-walras | Substantive draft ready (same bug class as #22927, adds macOS 15.7.x `minos` angle). | **HELD-PENDING** — gate on #22927 response or 3-day silence |
+
+---
+
+## 2026-05-18 — SEO + 24/7 infrastructure
+
+**GSC ownership verified** (HTML file method, `google101c2d89e62353fc.html` committed `a5f2d58`). Property `https://igorganapolsky.github.io/openclaw-mac-ai-workstation-setup/` is now verified for `iganapolsky@gmail.com`.
+
+**Sitemap submitted twice** (relative + absolute URL forms; GSC deduplicated to one row). Status currently `Couldn't fetch` — this is the standard immediate-post-submit placeholder. Google's actual crawl typically updates the status within hours to days.
+
+**7 URLs requested for priority indexing** via GSC URL Inspection:
+- `/`
+- `troubleshooting.html`
+- `computer-use-plugin-unavailable.html`
+- `codex-computer-use-intel-mac.html`
+- `claude-code-computer-use.html`
+- `claude-code-channels-not-working.html`
+- `quick-read.html`
+
+All received `Indexing requested` confirmation. Daily quota of ~10-12 used 7; left headroom.
+
+**Daily SEO monitor cron added** at `.github/workflows/seo-monitor.yml` (runs 09:17 ET daily). Probes all 8 landing pages + sitemap + robots, attempts a Bing-side index-count snapshot. Writes to `reports/seo/<date>.md`. Read-only; never posts.
+
+**IndexNow cleanup:** removed duplicate key file I'd created. Existing `65f8d0ef3b53207166db38ffcfb69ac7` is the canonical key (used by `.github/workflows/indexnow.yml` on every push to `.html` or `sitemap.xml`).
+
+**On ML/DS/RAG asks:** deferred. $0 MTD + ~5 outreach events is not enough signal to train, predict, or retrieve over. When 3+ weeks of monitor data exist, revisit. Earliest legit use of "RAG" at this scale is comment-draft grounding once the held drafts queue grows.

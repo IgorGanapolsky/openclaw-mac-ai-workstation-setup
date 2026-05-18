@@ -10,8 +10,10 @@
     "safe:ci": "node scripts/safe-command-runner.mjs --timeout-ms 180000 --idle-timeout-ms 60000 -- npm run ci",
     "reflect:demo": "node scripts/reflect-task.mjs --goal=\"Demo the reflection loop\" --worked=\"Captured a reusable pattern without secrets\" --target=\"self-improvement-loop.md\" --validation=\"npm run ci\"",
     "security:local": "node scripts/local-security-check.mjs",
+    "revenue:audit": "node scripts/revenue-report.mjs",
     "route:demo": "node scripts/route-demo.mjs",
-    "consent:demo": "node scripts/consent-policy-demo.mjs"
+    "consent:demo": "node scripts/consent-policy-demo.mjs",
+    "seo:check": "node scripts/seo-monitor.mjs"
   },
   "engines": {
     "node": ">=20"
