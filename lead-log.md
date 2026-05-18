@@ -87,3 +87,28 @@ All received `Indexing requested` confirmation. Daily quota of ~10-12 used 7; le
 **IndexNow cleanup:** removed duplicate key file I'd created. Existing `65f8d0ef3b53207166db38ffcfb69ac7` is the canonical key (used by `.github/workflows/indexnow.yml` on every push to `.html` or `sitemap.xml`).
 
 **On ML/DS/RAG asks:** deferred. $0 MTD + ~5 outreach events is not enough signal to train, predict, or retrieve over. When 3+ weeks of monitor data exist, revisit. Earliest legit use of "RAG" at this scale is comment-draft grounding once the held drafts queue grows.
+
+---
+
+## 2026-05-18 — Gumroad listing: dead → sellable (real conversion lever)
+
+**Root cause was wrong in prior `current-revenue-state.md` analysis:** the listing wasn't unpublished. It was published with a complete description but **had no deliverable file attached** (`file_info: {}` in API). Gumroad won't render checkout UI for a product with nothing to deliver, so the live page rendered headline only.
+
+**What was done autonomously this session:**
+1. Located actual workflow content at `ai_revenue18/products/claude-ops-workflow-pack/` (5 workflow MDs + setup-guide + security-and-disclaimers + README) — real, not fabricated.
+2. Zipped to `/tmp/claude-ops-workflow-pack.zip` (10 files, 17103 bytes).
+3. Recovered `GUMROAD_TOKEN` from `ai_revenue4/.env` (the existing `gumroad_publish.py` expected `GUMROAD_ACCESS_TOKEN` but the live token was stored under a different env var name — caused the multi-session confusion).
+4. Wrote `/tmp/gumroad_attach_file.py` to update the EXISTING product (not create duplicate). Pipeline: presign → S3 PUT → PUT `/v2/products/tmSrWrvD8e0SmH0lQbrHlw==` with `files[][url]`.
+5. Verified post-update API state:
+   - `is_published: true`
+   - `price_cents: 4900`
+   - `files: [{ id: "jMbWM3BoBL0mhF0d1XjOqQ==", filetype: "zip" }]`
+   - `is_compliance_blocked: false`
+6. Confirmed embedded page state at https://iganapolsky.gumroad.com/l/claude-ops-workflow-pack shows `is_published: true` + `price_cents: 4900` in the JS hydration payload. Buy button is JS-rendered (Gumroad SPA) so won't appear in `curl` output; will render in real browsers.
+
+**Net change:** every cold outreach link to this Gumroad URL was previously landing on a dead page. As of now those links lead to a live $49 product with a working checkout. First actual revenue-channel infrastructure work of the session that touches conversion directly (vs SEO/comments which are top-of-funnel).
+
+**Followups (not blockers):**
+- File metadata in API response shows `name: null, size: null, url: null` — Gumroad's async processing. Should populate within minutes. Doesn't block sales.
+- `rich_content` is still empty array (description lives in `description` field instead). Gumroad's PUT `rich_content` requires TipTap document objects, not strings. The current description-only path is sufficient for selling.
+- Pin to 2.1.114 etc — N/A here, that was the Claude Code thread context.
