@@ -34,6 +34,22 @@
 | 2026-05-18 | https://github.com/openai/codex/issues/22927 | @Scubasteve417 | Help-only cross-reference to #21579 marketplace-regeneration root cause. No Stripe link in body; soft landing-page link parenthetical. | **POSTED** (Comment: 4480331215) |
 | 2026-05-18 | https://github.com/openai/codex/issues/22949 | @river-walras | Substantive cross-reference to #21579 + #22927, adds macOS 15.7.x `minos` angle. | **POSTED** (Comment: 4480978482) |
 | 2026-05-18 | https://github.com/openai/codex/issues/18803 | @JOJOMRJ | Earlier comment (4480934144) edited to fix `$19` typo + add 3 inline diagnostic angles + reference #21579. Now matches quality of prior IgorGanapolsky comments on same thread (May 5, May 14). | **EDITED** (Comment: 4480934144) |
+| 2026-05-18 | https://github.com/anthropics/claude-code/issues/50903 | @cxm-ghu | Added their `tengu_harbor` GrowthBook decomp as Cause 8 to channels page first (commit 7b09df6), then posted substance comment crediting their work + asking 3 community-signal questions. No Stripe link in body — OP has done deeper work than my page covered, so the comment is genuine community contribution, not extraction. | **POSTED** (Comment: 4481178008) |
+
+---
+
+## 2026-05-18 — Asset improvement: Cause 8 added to Channels page
+
+`claude-code-channels-not-working.html` was 7 causes; @cxm-ghu's decomp on `anthropics/claude-code#50903` documented an 8th distinct cause (the `tengu_harbor` GrowthBook gate added in 2.1.114) that was NOT in my prior content. Updated:
+
+- Title and OG: "seven" → "eight"
+- Meta description, FAQ JSON-LD: added the new question
+- `datePublished` → 2026-05-14 (unchanged); `dateModified` → 2026-05-18
+- New `<div class="symptom">` for Cause 8 with full decomp credit to @cxm-ghu
+- "Why six of these never show an error" updated to "Why most of these never show an error" since Cause 8 is loud
+- `validate-site.mjs` updated to skip search-engine verification files (`google<token>.html`) from title/description check
+
+This is the high-leverage pattern: when an OP has done deep work I haven't covered, document their case in the asset (with credit), then engage on the issue as a contributor rather than a salesperson. The page now serves both as a destination for `"Channels are not currently available"` search traffic AND as a citation point in future related threads.
 
 ---
 
