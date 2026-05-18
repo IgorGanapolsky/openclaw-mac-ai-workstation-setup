@@ -77,6 +77,10 @@ for (const file of textFiles) {
 
 for (const file of htmlFiles) {
   const rel = relative(root, file);
+  // Search engine ownership verification files must be content-only
+  // (e.g. google<token>.html, BingSiteAuth.xml-equivalent .html).
+  // Adding HTML wrapping breaks Google's verifier.
+  if (/^google[a-f0-9]+\.html$/i.test(rel)) continue;
   const text = readFileSync(file, "utf8");
   if (!/<title>[^<]+<\/title>/i.test(text)) fail(`Missing <title> in ${rel}`);
   if (!/<meta\s+name=["']description["']/i.test(text)) fail(`Missing meta description in ${rel}`);
