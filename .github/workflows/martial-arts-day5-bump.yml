@@ -1,0 +1,154 @@
+name: Martial Arts Day-5 Bump
+# Day-5 follow-up bump for the 2026-05-19 Broward martial-arts cold batch.
+# Plan: per outbound/martial-arts-broward-2026-05-18/v2/_master.md the
+# follow-up cadence is Day+5 one-liner -> Day+10 angle -> Day+15 stop. This
+# workflow handles Day+5 (the bump script also enforces a Day-15 hard cap
+# server-side, so a missed run won't fire a 20-day-late bump).
+#
+# The bump SCRIPT lives in the sibling repo IgorGanapolsky/skool_top1percent
+# (scripts/revenue_ops/send_martial_arts_day5_bump.py) because that's where
+# all Resend outreach senders live and where data/outreach_suppression.txt is
+# canonical. The LEADS + LOG + replied.txt live in THIS repo. So this
+# workflow checks out both, then runs the script with cross-repo paths.
+#
+# Default behavior on the schedule = DRY RUN. Real sends require an explicit
+# workflow_dispatch with `apply: true` AND the RESEND_API_KEY repo secret.
+
+on:
+  schedule:
+    # Daily at 13:17 UTC (09:17 ET in DST, 08:17 ET out of DST). Starting
+    # 2026-05-24 the first eligible recipients hit Day +5 from the
+    # 2026-05-19 batch; the schedule itself can't gate on date, so the
+    # script's MIN_DAYS_SINCE_ORIGINAL filter (5) handles the gate. The
+    # script also won't bump past Day +15.
+    - cron: '17 13 * * *'
+  workflow_dispatch:
+    inputs:
+      apply:
+        description: 'Actually send via Resend (false = dry run, true = real send). Requires RESEND_API_KEY secret.'
+        required: true
+        default: 'false'
+        type: choice
+        options:
+          - 'false'
+          - 'true'
+      limit:
+        description: 'Optional limit on the number of bumps to send (blank = no limit).'
+        required: false
+        default: ''
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: martial-arts-day5-bump
+  cancel-in-progress: false
+
+jobs:
+  day5-bump:
+    runs-on: ubuntu-latest
+    # Gate: scheduled runs start firing 2026-05-24 (Day +5 from the
+    # 2026-05-19 batch). Earlier scheduled runs would be no-ops thanks to
+    # the script's MIN_DAYS gate, but skipping the job entirely avoids
+    # noisy "nothing to send" green checks in Actions history.
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.schedule == null || (github.event_name == 'schedule') }}
+    steps:
+      - name: Checkout this repo (openclaw — leads, log, replied.txt)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Checkout skool_top1percent (bump script + global suppression)
+        uses: actions/checkout@v4
+        with:
+          repository: IgorGanapolsky/skool_top1percent
+          # OUTREACH_TOKEN is the existing PAT used by revenue-cycle.yml —
+          # it has access to both repos. The script-side checkout is
+          # read-only (we don't push back to skool_top1percent here).
+          token: ${{ secrets.OUTREACH_TOKEN }}
+          path: _skool
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+
+      - name: Resolve send mode
+        id: mode
+        run: |
+          # Schedule -> always dry-run. Manual dispatch -> honor `apply` input.
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" && "${{ inputs.apply }}" == "true" ]]; then
+            echo "apply_flag=--apply" >> "$GITHUB_OUTPUT"
+            echo "mode=APPLY" >> "$GITHUB_OUTPUT"
+          else
+            echo "apply_flag=" >> "$GITHUB_OUTPUT"
+            echo "mode=DRY_RUN" >> "$GITHUB_OUTPUT"
+          fi
+          if [[ -n "${{ inputs.limit }}" ]]; then
+            echo "limit_flag=--limit ${{ inputs.limit }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "limit_flag=" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Verify RESEND_API_KEY is present when applying
+        if: ${{ steps.mode.outputs.mode == 'APPLY' }}
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+        run: |
+          if [[ -z "${RESEND_API_KEY:-}" ]]; then
+            echo "::error::RESEND_API_KEY secret not configured but apply=true was requested."
+            exit 1
+          fi
+
+      - name: Run Day-5 bump
+        env:
+          # Empty in dry-run mode so accidental --apply in code can't send.
+          RESEND_API_KEY: ${{ steps.mode.outputs.mode == 'APPLY' && secrets.RESEND_API_KEY || '' }}
+        run: |
+          # The script writes its JSONL log to reports/gtm/ relative to CWD,
+          # so run from this repo's root. The script itself lives in the
+          # sibling checkout under _skool/.
+          set -euo pipefail
+          # data/outreach_suppression.txt is read relative to CWD by the
+          # script. Symlink the sibling repo's canonical file into place so
+          # the global suppression list is honored without copying it.
+          mkdir -p data
+          if [[ ! -e data/outreach_suppression.txt ]]; then
+            ln -s ../_skool/data/outreach_suppression.txt data/outreach_suppression.txt
+          fi
+          python3 _skool/scripts/revenue_ops/send_martial_arts_day5_bump.py \
+            --csv outbound/martial-arts-broward-2026-05-18/leads.csv \
+            --original-log reports/gtm/martial_arts_broward_outreach_2026-05-19.json \
+            --replied outbound/martial-arts-broward-2026-05-18/replied.txt \
+            ${{ steps.mode.outputs.apply_flag }} \
+            ${{ steps.mode.outputs.limit_flag }}
+
+      - name: Commit & push updated bump log
+        # Only commit when we actually applied — dry runs produce no log file.
+        if: ${{ steps.mode.outputs.mode == 'APPLY' }}
+        run: |
+          set -e
+          # Don't commit the symlink we created for suppression — clean it up.
+          rm -f data/outreach_suppression.txt
+          rmdir data 2>/dev/null || true
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          # Only stage the bump log files. NEVER stage replied.txt (CEO
+          # curates that locally) and NEVER stage leads.csv.
+          git add reports/gtm/martial_arts_broward_day5_bump_*.json 2>/dev/null || true
+          if git diff --cached --quiet; then
+            echo "No new bump log to commit"
+          else
+            # Data-only commit from the bot — [skip ci] is acceptable here
+            # per AGENTS.md (code paths are unchanged, only the log was
+            # appended). Avoids triggering CI/CodeQL/SEO scans.
+            git commit -m "chore(outreach): martial-arts day-5 bump log [skip ci]"
+            git push origin HEAD:${{ github.ref_name }}
+          fi
