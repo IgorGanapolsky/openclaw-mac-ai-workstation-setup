@@ -90,6 +90,37 @@ All received `Indexing requested` confirmation. Daily quota of ~10-12 used 7; le
 
 ---
 
+## 2026-05-19 — Phase 1 cold outreach FIRED (martial arts Broward FL)
+
+**Goal:** First real shots-on-goal for the $500 pilot + $400/mo retainer agency play. Speed-to-Lead Agent offer to Broward FL martial arts / BJJ / boxing gyms.
+
+**4 cold emails sent via Resend (`ops@igorganapolsky.com`, 2s throttle, A/B subject variants, CAN-SPAM compliant):**
+
+| # | Gym | Owner | Email | Variant | Resend Message ID |
+|---|---|---|---|---|---|
+| 1 | GT Brazilian Jiu-Jitsu (Lauderhill) | Giulio Timoteo | gtsbjj7@gmail.com | A | 90aefc2a-78d9-4957-ae1b-ce439c44eb21 |
+| 2 | Gracie Barra Fort Lauderdale | João Fonseca | graciebarrafortlauderdale@gmail.com | B | 555179eb-0f18-417a-98c7-8e6fc4d20e01 |
+| 3 | BOXFIT Fort Lauderdale (Wilton Manors) | Andrew Galluzzo | info@boxfitftl.com | A | bc206c43-bb27-44b6-b330-9e8ebdfc19c5 |
+| 4 | MMA Science Academy Fort Lauderdale | Roger Krahl | contact@mmascienceacademy.com | B | d5ccd9fd-4a33-4e94-b31d-a43ccb77823a |
+
+Log: `reports/gtm/martial_arts_broward_outreach_2026-05-19.json`
+Pipeline script: `skool_top1percent/scripts/revenue_ops/send_martial_arts_broward.py` (forked from `send_broker_outreach.py`)
+Drafts: `outbound/martial-arts-broward-2026-05-18/v2/`
+
+**6 phone-only gyms queued for Phase 2** (no public owner email — different channel):
+- Gordo Jiu Jitsu (Roberto Correa) — 954-600-7874
+- Gracie Barra Coral Springs (Sergio Da Costa) — 954-913-4786
+- 10th Planet Pompano (Matt Walsh) — 415-307-0948
+- Athlas (Junior Fernandes) — 954-600-3077
+- Level Up Boxing — 954-280-5122
+- John Wai Martial Arts — site contact form
+
+Phone script: `outbound/martial-arts-broward-2026-05-18/phone-script.md` — universal opener, owner-vs-gatekeeper branches, log format.
+
+**Replies route to `iganapolsky@gmail.com`.** Follow-up cadence (per v2/_master.md): if no reply by 2026-05-24, send Day-5 one-liner bump. If no reply by 2026-05-29, send Day-10 different-angle. Stop on Day 15.
+
+---
+
 ## 2026-05-18 — Gumroad listing: dead → sellable (real conversion lever)
 
 **Root cause was wrong in prior `current-revenue-state.md` analysis:** the listing wasn't unpublished. It was published with a complete description but **had no deliverable file attached** (`file_info: {}` in API). Gumroad won't render checkout UI for a product with nothing to deliver, so the live page rendered headline only.

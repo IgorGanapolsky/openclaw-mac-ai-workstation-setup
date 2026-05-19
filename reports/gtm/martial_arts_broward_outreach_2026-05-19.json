@@ -10,5 +10,53 @@
     "status_code": 200,
     "message_id": "64d2a4b4-a582-47e1-a6de-219b229a8bf3",
     "error": null
+  },
+  {
+    "ts": "2026-05-19T13:50:14+00:00",
+    "recipient": "gtsbjj7@gmail.com",
+    "gym_name": "GT Brazilian Jiu-Jitsu",
+    "owner_name": "Giulio Timoteo",
+    "slug": "gt_jiu_jitsu",
+    "subject": "how fast does the trial form reply right now",
+    "subject_variant": "A",
+    "status_code": 200,
+    "message_id": "90aefc2a-78d9-4957-ae1b-ce439c44eb21",
+    "error": null
+  },
+  {
+    "ts": "2026-05-19T13:50:16+00:00",
+    "recipient": "graciebarrafortlauderdale@gmail.com",
+    "gym_name": "Gracie Barra Fort Lauderdale",
+    "owner_name": "Joao Fonseca",
+    "slug": "gb_fort_lauderdale",
+    "subject": "the GB intro program, the local follow-up gap",
+    "subject_variant": "B",
+    "status_code": 200,
+    "message_id": "555179eb-0f18-417a-98c7-8e6fc4d20e01",
+    "error": null
+  },
+  {
+    "ts": "2026-05-19T13:50:19+00:00",
+    "recipient": "info@boxfitftl.com",
+    "gym_name": "BOXFIT Fort Lauderdale",
+    "owner_name": "Andrew Galluzzo",
+    "slug": "boxfit_ftl",
+    "subject": "Sunday inquiries while the gym is closed",
+    "subject_variant": "A",
+    "status_code": 200,
+    "message_id": "bc206c43-bb27-44b6-b330-9e8ebdfc19c5",
+    "error": null
+  },
+  {
+    "ts": "2026-05-19T13:50:21+00:00",
+    "recipient": "contact@mmascienceacademy.com",
+    "gym_name": "MMA Science Academy Fort Lauderdale",
+    "owner_name": "Roger Krahl",
+    "slug": "mma_science",
+    "subject": "matching trial inquiries to Basics vs Advanced",
+    "subject_variant": "B",
+    "status_code": 200,
+    "message_id": "d5ccd9fd-4a33-4e94-b31d-a43ccb77823a",
+    "error": null
   }
 ]

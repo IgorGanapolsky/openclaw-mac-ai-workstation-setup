@@ -10,6 +10,6 @@ Built an agent that catches the inquiry 24/7 (form, IG, missed call), replies wi
 
 $500 pilot. Refund if it doesn't recover ≥3 trial conversions in 30 days.
 
-Reply "demo" — 60-second recording of a Sunday-afternoon inquiry flow tonight.
+Reply "yes" and I'll walk you through it — 15-min call or 5-minute email, your pick.
 
 — Igor

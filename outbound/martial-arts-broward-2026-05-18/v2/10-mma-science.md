@@ -12,6 +12,6 @@ Built an agent for this. Catches the inquiry, replies in 30 seconds, asks the le
 
 $500 pilot. Refund if it doesn't recover ≥3 trial conversions in 30 days.
 
-Reply "demo" — 60-second recording tonight.
+Reply "yes" and I'll walk you through it — 15-min call or 5-minute email, your pick.
 
 — Igor

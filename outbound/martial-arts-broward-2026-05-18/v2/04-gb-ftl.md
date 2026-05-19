@@ -10,6 +10,6 @@ Built an agent that catches the inquiry (form, IG, missed call) and replies with
 
 $500 pilot. Refund if it doesn't recover ≥3 trial conversions in 30 days, you keep the automations.
 
-Reply "demo" and I'll send a 60-second recording tonight.
+Reply "yes" and I'll walk you through it — 15-min call or 5-minute email, your pick.
 
 — Igor
