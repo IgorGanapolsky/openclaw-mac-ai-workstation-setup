@@ -1,0 +1,86 @@
+[
+  {
+    "ts": "2026-05-19T16:21:31+00:00",
+    "recipient": "caroline@thefortlauderdalemedspa.com",
+    "gym_name": "The Fort Lauderdale MedSpa",
+    "owner_name": "Caroline Dondi Lambrechts APRN",
+    "slug": "ftl_medspa",
+    "subject": "the 8 PM consultation form",
+    "subject_variant": "A",
+    "status_code": 200,
+    "message_id": "292f3fba-6edc-434a-8521-6d1a56c10e52",
+    "error": null
+  },
+  {
+    "ts": "2026-05-19T16:21:33+00:00",
+    "recipient": "fortlauderdale@viomedspa.com",
+    "gym_name": "VIO Med Spa Fort Lauderdale",
+    "owner_name": "(location manager)",
+    "slug": "vio_ftl",
+    "subject": "routing inquiries across 5 VIO locations",
+    "subject_variant": "B",
+    "status_code": 200,
+    "message_id": "b870993b-8ba7-47c6-9ebf-422f4984d57f",
+    "error": null
+  },
+  {
+    "ts": "2026-05-19T16:21:35+00:00",
+    "recipient": "vipaestheticcenter@gmail.com",
+    "gym_name": "VIP Aesthetic Center",
+    "owner_name": "(owner)",
+    "slug": "vip_aesthetic",
+    "subject": "Hallandale inquiries competing with Aventura",
+    "subject_variant": "A",
+    "status_code": 200,
+    "message_id": "2f0dc77b-8304-4d19-a5c8-9dae3b5461e5",
+    "error": null
+  },
+  {
+    "ts": "2026-05-19T16:21:38+00:00",
+    "recipient": "ftlauderdale@promdhealth.com",
+    "gym_name": "ProMD Health Fort Lauderdale",
+    "owner_name": "(location manager)",
+    "slug": "promd_ftl",
+    "subject": "qualifying across Botox vs weight-loss vs hormone",
+    "subject_variant": "B",
+    "status_code": 200,
+    "message_id": "c24ba2b9-36b3-4360-86df-10ac44712627",
+    "error": null
+  },
+  {
+    "ts": "2026-05-19T16:21:40+00:00",
+    "recipient": "yunikaesthetics@gmail.com",
+    "gym_name": "Yunik Aesthetics",
+    "owner_name": "(owner)",
+    "slug": "yunik",
+    "subject": "lip-filler trial inquiry windows",
+    "subject_variant": "A",
+    "status_code": 200,
+    "message_id": "3ee576ed-9499-407c-b953-4c06f0f840fa",
+    "error": null
+  },
+  {
+    "ts": "2026-05-19T16:21:42+00:00",
+    "recipient": "touchoflifemedspa@gmail.com",
+    "gym_name": "Touch of Life Med Spa",
+    "owner_name": "(owner)",
+    "slug": "touch_of_life",
+    "subject": "triaging mixed-service inquiries",
+    "subject_variant": "B",
+    "status_code": 200,
+    "message_id": "345b16ba-b800-433f-85cd-a726f47779c7",
+    "error": null
+  },
+  {
+    "ts": "2026-05-19T16:21:44+00:00",
+    "recipient": "info@beautyhealthmedspa.com",
+    "gym_name": "Beauty Health MedSpa",
+    "owner_name": "(owner)",
+    "slug": "beauty_health_cs",
+    "subject": "Coral Springs vs Boca consultation competition",
+    "subject_variant": "A",
+    "status_code": 200,
+    "message_id": "bd57f5af-c9e4-4d1d-8fc0-1a82c773c7d7",
+    "error": null
+  }
+]

@@ -90,6 +90,32 @@ All received `Indexing requested` confirmation. Daily quota of ~10-12 used 7; le
 
 ---
 
+## 2026-05-19 — Phase 2 cold outreach FIRED (med spas Broward FL)
+
+**Vertical:** med spas / aesthetics in Broward County FL. Chosen because (a) doesn't overlap with martial arts (Phase 1), (b) high consultation LTV ($300-1,500+ first treatment, recurring), (c) speed-to-lead pain is acute (consultations after-hours, weekend inquiries), (d) single-owner operations.
+
+**7 cold emails sent via `send_med_spa_broward.py` (forked from martial arts script — same compliance: CAN-SPAM footer, 2s throttle, halt on 400/403/429, JSONL log, A/B variants):**
+
+| # | Med Spa | Owner | Email | Variant | Resend Message ID |
+|---|---|---|---|---|---|
+| 1 | The Fort Lauderdale MedSpa | Caroline Dondi Lambrechts APRN | caroline@thefortlauderdalemedspa.com | A | 292f3fba-6edc-434a-8521-6d1a56c10e52 |
+| 2 | VIO Med Spa Fort Lauderdale | (location manager) | fortlauderdale@viomedspa.com | B | b870993b-8ba7-47c6-9ebf-422f4984d57f |
+| 3 | VIP Aesthetic Center (Hallandale Beach) | (owner) | vipaestheticcenter@gmail.com | A | 2f0dc77b-8304-4d19-a5c8-9dae3b5461e5 |
+| 4 | ProMD Health Fort Lauderdale | (location manager) | ftlauderdale@promdhealth.com | B | c24ba2b9-36b3-4360-86df-10ac44712627 |
+| 5 | Yunik Aesthetics (Pembroke Pines) | (owner) | yunikaesthetics@gmail.com | A | 3ee576ed-9499-407c-b953-4c06f0f840fa |
+| 6 | Touch of Life Med Spa (Pembroke Pines) | (owner) | touchoflifemedspa@gmail.com | B | 345b16ba-b800-433f-85cd-a726f47779c7 |
+| 7 | Beauty Health MedSpa (Coral Springs) | (owner) | info@beautyhealthmedspa.com | A | bd57f5af-c9e4-4d1d-8fc0-1a82c773c7d7 |
+
+Log: `reports/gtm/med_spa_broward_outreach_2026-05-19.json`
+Pipeline: `skool_top1percent/scripts/revenue_ops/send_med_spa_broward.py`
+Drafts: `outbound/med-spas-broward-2026-05-19/v1/`
+
+**Three med spas were found in research but skipped (no public owner email):** Mélange Medspa (Hollywood), Amaira Med Spa, Millennium Wellness Center (Zhanna Zitsbank). Queued for phone-script Phase if/when email channel proves out.
+
+**Outreach total today:** 4 martial arts gyms (Phase 1, ~3.5h ago) + 7 med spas (Phase 2, just now) = **11 cold prospects across 2 verticals**.
+
+---
+
 ## 2026-05-19 — ThumbGate revenue audit (strict, evidence-based)
 
 **Top-line verdict:** Page is NOT broken. Stripe checkout works. Revenue is $0 from real customers because (1) value proposition is buried under 13 visible price points, (2) observability is installed but not read, (3) the moat leaks — the product itself ships on npm.
