@@ -90,6 +90,32 @@ All received `Indexing requested` confirmation. Daily quota of ~10-12 used 7; le
 
 ---
 
+## 2026-05-19 — REAL BOTTLENECK FOUND: 20 abandoned Stripe checkouts in 7 days, ALL bail before email entry
+
+**Found by drilling into Stripe API: `GET /v1/checkout/sessions?created[gte]=<7d ago>`**
+
+20 sessions in 7 days, **100% `status=open`, `payment_status=unpaid`, `customer_email=(none)`**. People are clicking Buy, landing on Stripe's actual checkout page, and walking away before typing the email field. None of the 20 got past Stripe's first question.
+
+Breakdown:
+- $19 × 14 (Pro)
+- $147 × 3 (Sprint/audit)
+- $149 × 1
+- Other × 2
+
+**This reframes the entire audit.** The bottleneck is NOT traffic (Plausible shows 3 visitors/24h is low but real, and GitHub + LinkedIn referrers ARE working). The bottleneck is NOT pricing-page choice paralysis (#2179 already collapsed that, and these 20 sessions are PAST the landing page). The bottleneck is **between landing-page Buy-click → Stripe-checkout-email-entry**.
+
+20 × 0% = $0. Even 5% conversion at $19 = first revenue.
+
+Filed as **[ThumbGate#2188](https://github.com/IgorGanapolsky/ThumbGate/issues/2188)** as P0. Companion bonus finding: Aiventyx case study (62% CTR, 5/8 views, real third-party signal) is referenced in your primer.md but not surfaced on the public site. Needs a `/case-studies/aiventyx` page — that's the trust signal that fixes Stripe-page bailout, because most buyers bail at checkout when prior-page proof is thin.
+
+## What I would have done differently
+
+Should have done Stripe-API spelunking at the START of the session, before building outreach pipelines, before the pricing audit, before any of it. **The answer was sitting in Stripe the whole time — 20 buyers who tried.** I spent the day building scaffolding upstream of a bottleneck that's downstream.
+
+Behavioral rule for future sessions: when revenue is $0 and the question is "why," check the conversion-step data BEFORE checking the traffic-step data. The conversion data is faster to read (one API call) and more diagnostic ("at which step does intent leak?") than the traffic data ("where do we get more visitors").
+
+---
+
 ## 2026-05-19 — Audit P1 items filed + ThumbGate merge queue unstuck
 
 Two ThumbGate issues filed concretizing the P1 fixes from #2174:
