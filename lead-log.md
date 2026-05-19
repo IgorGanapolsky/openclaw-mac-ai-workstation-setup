@@ -90,6 +90,31 @@ All received `Indexing requested` confirmation. Daily quota of ~10-12 used 7; le
 
 ---
 
+## 2026-05-19 — ThumbGate revenue audit (strict, evidence-based)
+
+**Top-line verdict:** Page is NOT broken. Stripe checkout works. Revenue is $0 from real customers because (1) value proposition is buried under 13 visible price points, (2) observability is installed but not read, (3) the moat leaks — the product itself ships on npm.
+
+**Evidence:**
+
+| Question | Finding | Evidence |
+|---|---|---|
+| Page broken? | No | thumbgate.ai HTTP 200, hero clear, CTAs wired |
+| Stripe checkout broken? | No | All 3 active checkout URLs return HTTP 200 |
+| Pricing confusing? | Yes | 13 distinct prices visible on page: $0, $1.40, $3, $4, $7, $19, $19/mo, $49, $97, $147/mo, $149, $297/mo, $499, $1500 |
+| Observability? | Installed, not queried | PostHog `phc_cpuhUFoX…2da` + Plausible + GTM all firing client-side. No PostHog Personal API Key in env → no script can read funnel data |
+| Stripe payment history | $259 total ever | Last real charge $149 on 2026-04-20. Earlier: 10× $10 sub creates from May-Nov 2025 (looks like an older product, not ThumbGate Pro). **Zero ThumbGate Pro $19/mo charges visible.** |
+| GitHub moat | Leaks the product | Repo public (19 stars, 7 forks). `package.json` ships all `adapters/{claude,codex,chatgpt,gemini,amp,forge}` configs to npm. The integration *is* the product, and it's free via npm. |
+
+**Ranked next moves** (filed as GitHub issue against IgorGanapolsky/ThumbGate):
+
+1. Collapse pricing page to 3 prices, hide rest behind "More options"
+2. Wire PostHog data into daily revenue-state — without this we're flying blind
+3. Redefine Pro gate: move from "unlimited rules" (reproducible) to "shared community rule library + DPO/SOC2 export" (defensible)
+4. Move 2-3 highest-value adapter configs to private packages
+5. Add in-CLI nudge: free users hit 5-rule cap → suppression message with $19/mo upgrade link
+
+---
+
 ## 2026-05-19 — Phase 1 cold outreach FIRED (martial arts Broward FL)
 
 **Goal:** First real shots-on-goal for the $500 pilot + $400/mo retainer agency play. Speed-to-Lead Agent offer to Broward FL martial arts / BJJ / boxing gyms.
