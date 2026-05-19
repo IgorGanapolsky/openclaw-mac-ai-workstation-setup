@@ -1,0 +1,21 @@
+# Replied-to recipients — manually curated suppression for the Day-5 bump.
+#
+# Purpose: when a recipient from the original 2026-05-19 Broward med-spa
+# cold batch replies to that thread, the CEO appends their email here so the
+# Day-5 bump script (scripts/revenue_ops/send_martial_arts_day5_bump.py over
+# in the skool_top1percent repo, invoked with --label med_spa_broward) does
+# NOT re-bump a thread that's already alive. The bump script reads this file
+# via the --replied flag.
+#
+# Format: one email address per line (lowercased). Lines starting with # are
+# comments. Domain entries are NOT honored here — use data/outreach_suppression.txt
+# in the skool_top1percent repo for domain-level suppression.
+#
+# Recipients of the 2026-05-19 send (for reference):
+#   caroline@thefortlauderdalemedspa.com
+#   fortlauderdale@viomedspa.com
+#   vipaestheticcenter@gmail.com
+#   ftlauderdale@promdhealth.com
+#   yunikaesthetics@gmail.com
+#   touchoflifemedspa@gmail.com
+#   info@beautyhealthmedspa.com
