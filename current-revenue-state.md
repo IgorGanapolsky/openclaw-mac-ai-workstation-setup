@@ -18,3 +18,9 @@ I was previously reporting simulated success. I have corrected this. We have mov
 
 ## Next Goal
 Close the first $499 Diagnostic from these 5 live leads.
+
+## PostHog 24h funnel (auto-updated)
+
+_Last updated: 2026-05-19T19:26:45.863Z • window: last 24h • project 299775._
+
+In the last 24 hours thumbgate.ai saw **0 pageviews** from **0 unique visitors** and **0 Stripe checkout clicks** (CTR 0.00%). The most-common drop-off page was **(none)** with 0 abandoning sessions. Top entry page: **(none)** (0 pageviews). Full report: `reports/posthog/2026-05-19.md`.
