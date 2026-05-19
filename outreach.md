@@ -17,7 +17,7 @@ I just packaged a done-for-you setup for founders/devs:
 - short operating runbook
 
 Lowest-friction async read first — $49 same-day triage:
-https://buy.stripe.com/28E7sL3Ug3n0bO935V3sI0r
+https://igorganapolsky.github.io/openclaw-mac-ai-workstation-setup/speed-to-lead.html
 
 If that says you need the full setup, the $49 credits forward.
 
@@ -39,7 +39,7 @@ Six diagnostic classes with exact commands:
 https://igorganapolsky.github.io/openclaw-mac-ai-workstation-setup/troubleshooting.html
 
 $19 if you want me to read your specific log:
-https://buy.stripe.com/aFaeVd3Ug3n05pLfSH3sI0u
+https://igorganapolsky.github.io/openclaw-mac-ai-workstation-setup/speed-to-lead.html
 
 ## Reddit reply (technical sub — value-first)
 
@@ -68,7 +68,7 @@ Hi {{first_name}},
 
 I've been doing async diagnostics for that class of failure on Mac AI-agent setups. The cheapest read is $49 same-day triage — send one log/transcript, get back the likely root cause plus the next 3 commands. Same-day or refund.
 
-https://buy.stripe.com/28E7sL3Ug3n0bO935V3sI0r
+https://igorganapolsky.github.io/openclaw-mac-ai-workstation-setup/speed-to-lead.html
 
 If you'd rather self-diagnose first, the free walkthrough is here:
 https://igorganapolsky.github.io/openclaw-mac-ai-workstation-setup/troubleshooting.html

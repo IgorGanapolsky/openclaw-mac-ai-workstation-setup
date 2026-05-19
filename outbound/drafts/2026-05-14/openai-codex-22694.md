@@ -44,7 +44,7 @@ Rules:
 - Name one verified check or workaround.
 - Link to https://igorganapolsky.github.io/openclaw-mac-ai-workstation-setup/troubleshooting.html
   with UTM tag ?utm_source=codex-issue&utm_medium=funnel&utm_campaign=qr-2026.
-- End with the $19 quick-read CTA: https://buy.stripe.com/aFaeVd3Ug3n05pLfSH3sI0u?utm_source=codex-issue&utm_medium=funnel&utm_campaign=qr-2026
+- End with the $19 quick-read CTA: https://igorganapolsky.github.io/openclaw-mac-ai-workstation-setup/speed-to-lead.html
   and a refund clause.
 - Cap length at ~2000 chars.
 -->

@@ -3,13 +3,13 @@
 If OpenClaw, Codex, or Computer Use is refusing simple tasks, burning context, using the wrong model, or failing macOS desktop automation, the fastest paid entry point is the diagnostic.
 
 Same-day triage checkout:
-https://buy.stripe.com/28E7sL3Ug3n0bO935V3sI0r
+https://igorganapolsky.github.io/openclaw-mac-ai-workstation-setup/speed-to-lead.html
 
 Diagnostic checkout:
-https://buy.stripe.com/28EfZheyU2iW4lH35V3sI0q
+https://igorganapolsky.github.io/openclaw-mac-ai-workstation-setup/speed-to-lead.html
 
 Full setup checkout:
-https://buy.stripe.com/aFa14nbmIg9M3hDayn3sI0k
+https://igorganapolsky.github.io/openclaw-mac-ai-workstation-setup/speed-to-lead.html
 
 After checkout, send:
 

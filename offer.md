@@ -21,9 +21,9 @@ For enterprise buyers, the productized offer is provider access design across di
 ## Price
 
 - Diagnostic: $99
-- Diagnostic checkout: https://buy.stripe.com/28EfZheyU2iW4lH35V3sI0q
+- Diagnostic checkout: https://igorganapolsky.github.io/openclaw-mac-ai-workstation-setup/speed-to-lead.html
 - One-time setup: $497
-- Stripe checkout: https://buy.stripe.com/aFa14nbmIg9M3hDayn3sI0k
+- Stripe checkout: https://igorganapolsky.github.io/openclaw-mac-ai-workstation-setup/speed-to-lead.html
 - Optional maintenance: $250/month
 - Maintenance checkout: https://buy.stripe.com/bJe3cv0I40aO7xTeOD3sI0l
 

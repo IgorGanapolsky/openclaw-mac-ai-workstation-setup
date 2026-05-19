@@ -8,11 +8,11 @@ Public page → https://igorganapolsky.github.io/openclaw-mac-ai-workstation-set
 
 **Cheapest path:** $19 quick read. Send one failing transcript or log excerpt. Get back the likely root cause, the next command to run, and a recommendation on whether you need the higher tiers.
 
-→ https://buy.stripe.com/aFaeVd3Ug3n05pLfSH3sI0u
+→ https://igorganapolsky.github.io/openclaw-mac-ai-workstation-setup/speed-to-lead.html
 
 If you came in from a GitHub issue with a specific bug, jump to **$49 same-day triage** — issue-referred buyers are usually already qualified for that.
 
-→ https://buy.stripe.com/28E7sL3Ug3n0bO935V3sI0r
+→ https://igorganapolsky.github.io/openclaw-mac-ai-workstation-setup/speed-to-lead.html
 
 **Free, no signup, one command:**
 
@@ -32,7 +32,7 @@ Runs the read-only checks for all six known root causes, redacts common secrets,
 | Done-For-You Setup | $497 | Full configuration of routing, sessions, Computer Use, smoke tests, runbook | Buyer who wants a working stack delivered |
 | Maintenance | $250/mo | Monthly checkup, provider cleanup, route refresh, one priority rescue/month | Setup customer who keeps shipping |
 
-Stripe links: [$19](https://buy.stripe.com/aFaeVd3Ug3n05pLfSH3sI0u) · [$49](https://buy.stripe.com/28E7sL3Ug3n0bO935V3sI0r) · [$99](https://buy.stripe.com/28EfZheyU2iW4lH35V3sI0q) · [$497](https://buy.stripe.com/aFa14nbmIg9M3hDayn3sI0k) · [$250/mo](https://buy.stripe.com/bJe3cv0I40aO7xTeOD3sI0l)
+Stripe links: [$19](https://igorganapolsky.github.io/openclaw-mac-ai-workstation-setup/speed-to-lead.html) · [$49](https://igorganapolsky.github.io/openclaw-mac-ai-workstation-setup/speed-to-lead.html) · [$99](https://igorganapolsky.github.io/openclaw-mac-ai-workstation-setup/speed-to-lead.html) · [$497](https://igorganapolsky.github.io/openclaw-mac-ai-workstation-setup/speed-to-lead.html) · [$250/mo](https://buy.stripe.com/bJe3cv0I40aO7xTeOD3sI0l)
 
 ## What It Fixes
 
