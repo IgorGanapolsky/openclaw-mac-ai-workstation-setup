@@ -13,7 +13,8 @@
     "revenue:audit": "node scripts/revenue-report.mjs",
     "route:demo": "node scripts/route-demo.mjs",
     "consent:demo": "node scripts/consent-policy-demo.mjs",
-    "seo:check": "node scripts/seo-monitor.mjs"
+    "seo:check": "node scripts/seo-monitor.mjs",
+    "posthog:read": "node scripts/posthog-funnel-read.mjs"
   },
   "engines": {
     "node": ">=20"

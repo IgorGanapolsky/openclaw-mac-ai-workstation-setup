@@ -1,0 +1,46 @@
+name: PostHog daily funnel reader
+
+on:
+  schedule:
+    # 10:17 ET == 15:17 UTC during EDT (DST). Adjust if standard-time
+    # drift becomes an operational issue; for now the report can be a
+    # few minutes off the wall clock without consequence.
+    - cron: '17 15 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  funnel:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+
+      - name: Read PostHog funnel
+        env:
+          POSTHOG_PERSONAL_API_KEY: ${{ secrets.POSTHOG_PERSONAL_API_KEY }}
+          POSTHOG_HOST: ${{ vars.POSTHOG_HOST }}
+          POSTHOG_PROJECT_ID: ${{ vars.POSTHOG_PROJECT_ID }}
+        run: npm run posthog:read
+
+      - name: Commit + push report
+        run: |
+          set -e
+          git config --global user.name "OpenClaw PostHog Bot"
+          git config --global user.email "bot@openclaw.io"
+          git add reports/posthog/ current-revenue-state.md || true
+          if git diff --cached --quiet; then
+            echo "No PostHog funnel changes to commit."
+            exit 0
+          fi
+          git commit -m "chore(observability): daily PostHog funnel report"
+          git push origin HEAD:main
