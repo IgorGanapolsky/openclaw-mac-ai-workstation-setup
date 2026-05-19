@@ -1,0 +1,14 @@
+[
+  {
+    "ts": "2026-05-19T13:32:52+00:00",
+    "recipient": "iganapolsky@gmail.com",
+    "gym_name": "GT Brazilian Jiu-Jitsu (TEST SEND \u2014 ignore)",
+    "owner_name": "Giulio Timoteo",
+    "slug": "test_canary",
+    "subject": "how fast does the trial form reply right now",
+    "subject_variant": "A",
+    "status_code": 200,
+    "message_id": "64d2a4b4-a582-47e1-a6de-219b229a8bf3",
+    "error": null
+  }
+]
