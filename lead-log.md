@@ -90,7 +90,25 @@ All received `Indexing requested` confirmation. Daily quota of ~10-12 used 7; le
 
 ---
 
-## 2026-05-19 — REAL BOTTLENECK FOUND: 20 abandoned Stripe checkouts in 7 days, ALL bail before email entry
+## 2026-05-19 — ROOT CAUSE VERIFIED: Stripe checkout is referencing an INACTIVE Price ID
+
+**After loading a fresh Stripe session in Comet, the page renders: "Something went wrong / The page you were looking for could not be found."** Every Buy click is hitting this. Not bot traffic (sessions span 11 hours of the day, real metadata). Not session expiry (a session created seconds ago shows the same error). The Stripe Price ID being used in session creation is `active: false`.
+
+**Evidence:**
+- Live session line_items: `"price": { "id": "price_1TYrTQGGBpd520QYiT4vCn8A", "active": false }`
+- Active Pro Monthly $19 should be: `price_1TX5mHGGBpd520QYJPOcLtnv` (nickname "Pro — Monthly")
+- Stripe account itself is healthy: charges_enabled, payouts_enabled, card_payments=active
+
+**The 30-second fix (you, in Railway dashboard):**
+Update env var `STRIPE_PRICE_ID_PRO_MONTHLY` from `price_1TYrTQGGBpd520QYiT4vCn8A` → `price_1TX5mHGGBpd520QYJPOcLtnv`. Also verify `STRIPE_PRICE_ID_TEAM_MONTHLY` (active = `price_1TX5mIGGBpd520QYIIjuUwpj`) and `STRIPE_PRICE_ID_PRO_ANNUAL` (active = `price_1TX5mHGGBpd520QYBnYodwf2`). Redeploy.
+
+**This is the actual reason for $0 revenue.** 20 people clicked Buy in 7 days. All 20 landed on Stripe's broken page. None could enter an email because the form never rendered.
+
+Updated [ThumbGate#2188](https://github.com/IgorGanapolsky/ThumbGate/issues/2188) with the full evidence chain + companion defensive-code recommendation.
+
+---
+
+## 2026-05-19 — Earlier framing: REAL BOTTLENECK FOUND: 20 abandoned Stripe checkouts in 7 days, ALL bail before email entry
 
 **Found by drilling into Stripe API: `GET /v1/checkout/sessions?created[gte]=<7d ago>`**
 
