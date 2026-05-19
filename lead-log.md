@@ -90,6 +90,17 @@ All received `Indexing requested` confirmation. Daily quota of ~10-12 used 7; le
 
 ---
 
+## 2026-05-19 — Audit P1 items filed + ThumbGate merge queue unstuck
+
+Two ThumbGate issues filed concretizing the P1 fixes from #2174:
+
+- **[#2185](https://github.com/IgorGanapolsky/ThumbGate/issues/2185)** — Redefine Pro gate from "unlimited rules" (reproducible from open CLI) to "shared community rule library + signed compliance export bundle." Names what's actually defensible.
+- **[#2186](https://github.com/IgorGanapolsky/ThumbGate/issues/2186)** — Move `adapters/chatgpt/*` and `adapters/forge/*` to a private `@thumbgate/enterprise-adapters` npm package. Keep Claude/Codex/Gemini adapters open (SEO). Closes the npm-leak moat hole.
+
+**Merge queue unstuck:** discovered the 6 dep-bump-fix PRs (#2121-#2126) had `auto-merge=OFF` after the changeset commit reset their state. Re-enabled with `gh pr merge --squash --auto` on all 6. All 12 queued PRs now `auto=SQUASH`, waiting for Trunk.io to process serially.
+
+---
+
 ## 2026-05-19 — Phase 2 cold outreach FIRED (med spas Broward FL)
 
 **Vertical:** med spas / aesthetics in Broward County FL. Chosen because (a) doesn't overlap with martial arts (Phase 1), (b) high consultation LTV ($300-1,500+ first treatment, recurring), (c) speed-to-lead pain is acute (consultations after-hours, weekend inquiries), (d) single-owner operations.
