@@ -175,7 +175,8 @@
         .sub { font-size: 18px; }
       }
     </style>
-  <script defer data-domain="igorganapolsky.github.io" src="https://plausible.io/js/script.outbound-links.js"></script>
+  <script defer data-domain="igorganapolsky.github.io" src="https://plausible.io/js/script.tagged-events.js"></script>
+  <script defer src="./assets/revenue-analytics.js"></script>
   </head>
   <body>
     <main class="wrap">
@@ -184,8 +185,28 @@
         <h1>Find out whether Computer Use is blocked by your setup or by the app bundle.</h1>
         <p class="sub">A focused Mac AI-agent audit for Codex/OpenClaw users who see Computer Use unavailable, missing plugin payloads, stale permissions, broken provider routes, or unreliable desktop automation.</p>
         <div class="cta-row">
-          <a class="button" href="https://buy.stripe.com/eVqcN53Ug1eS5pL0XN3sI2A?utm_source=intel-mac&utm_medium=funnel&utm_campaign=reliability-2026">Buy $499 reliability diagnostic</a>
-          <a class="button secondary" href="./speed-to-lead.html">Same-day triage for $49</a>
+          <a
+            class="button"
+            href="https://buy.stripe.com/eVqcN53Ug1eS5pL0XN3sI2A?client_reference_id=openclaw_intel_mac_reliability_diagnostic&utm_source=intel-mac&utm_medium=funnel&utm_campaign=reliability-2026"
+            data-track="checkout_click"
+            data-source="openclaw_intel_mac"
+            data-surface="openclaw_intel_mac"
+            data-tier="reliability_diagnostic"
+            data-price="499"
+            data-placement="hero_primary"
+            >Buy $499 reliability diagnostic</a
+          >
+          <a
+            class="button secondary"
+            href="./speed-to-lead.html"
+            data-track="lead_click"
+            data-source="openclaw_intel_mac"
+            data-surface="openclaw_intel_mac"
+            data-tier="same_day_triage"
+            data-price="49"
+            data-placement="hero_triage"
+            >Same-day triage for $49</a
+          >
           <a class="button secondary" href="./troubleshooting.html">Read checklist</a>
         </div>
         <p class="sub" style="margin-top:18px;"><strong>Free self-serve bundle, one command:</strong></p>
@@ -227,8 +248,28 @@ find ~/.codex/plugins/cache/openai-bundled -maxdepth 3 -type d -name "*computer*
         <h2>Start</h2>
         <p>Buy triage or the full diagnostic. Send the GitHub issue URL, Mac model, macOS version, Codex/OpenClaw version, and the self-check output.</p>
         <div class="cta-row">
-          <a class="button" href="https://buy.stripe.com/eVqcN53Ug1eS5pL0XN3sI2A?utm_source=intel-mac&utm_medium=funnel&utm_campaign=reliability-2026">Buy $499 diagnostic</a>
-          <a class="button secondary" href="./speed-to-lead.html">Buy $49 triage</a>
+          <a
+            class="button"
+            href="https://buy.stripe.com/eVqcN53Ug1eS5pL0XN3sI2A?client_reference_id=openclaw_intel_mac_bottom_reliability_diagnostic&utm_source=intel-mac&utm_medium=funnel&utm_campaign=reliability-2026"
+            data-track="checkout_click"
+            data-source="openclaw_intel_mac"
+            data-surface="openclaw_intel_mac"
+            data-tier="reliability_diagnostic"
+            data-price="499"
+            data-placement="bottom_primary"
+            >Buy $499 diagnostic</a
+          >
+          <a
+            class="button secondary"
+            href="./speed-to-lead.html"
+            data-track="lead_click"
+            data-source="openclaw_intel_mac"
+            data-surface="openclaw_intel_mac"
+            data-tier="same_day_triage"
+            data-price="49"
+            data-placement="bottom_triage"
+            >Buy $49 triage</a
+          >
         </div>
       </section>
 
