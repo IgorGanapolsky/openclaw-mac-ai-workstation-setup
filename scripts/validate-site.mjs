@@ -7,6 +7,7 @@ const allowedExternal = [
   "https://buy.stripe.com/",
   "https://github.com/",
   "https://igorganapolsky.github.io/",
+  "https://www.googletagmanager.com/",
   "https://plausible.io/",
   "https://www.kdnuggets.com/",
   "mailto:",
