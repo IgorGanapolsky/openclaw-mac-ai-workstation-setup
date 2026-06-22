@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Publish via Zernio
         run: |
           OFFER=$(cat reports/gtm/*/outbound-queue.md | tail -n 1)
