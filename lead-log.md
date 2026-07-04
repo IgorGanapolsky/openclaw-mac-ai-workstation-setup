@@ -249,3 +249,32 @@ Phone script: `outbound/martial-arts-broward-2026-05-18/phone-script.md` — uni
 - File metadata in API response shows `name: null, size: null, url: null` — Gumroad's async processing. Should populate within minutes. Doesn't block sales.
 - `rich_content` is still empty array (description lives in `description` field instead). Gumroad's PUT `rich_content` requires TipTap document objects, not strings. The current description-only path is sufficient for selling.
 - Pin to 2.1.114 etc — N/A here, that was the Claude Code thread context.
+
+---
+
+## 2026-07-04 — Bluesky channel OPENED (API posting works from cloud sessions) + Reddit modbot lesson
+
+**Bluesky posts LIVE (atproto API, verified URLs):**
+
+| Post | URL |
+| --- | --- |
+| Owned: Mac agent failures → troubleshooting.html | https://bsky.app/profile/iganapolsky.bsky.social/post/3mpu6p7i5lw2z |
+| Reply to @vinkius-mcp-ai (pre-execution controls thread, peer-builder angle) | https://bsky.app/profile/iganapolsky.bsky.social/post/3mpu6pyibr32j |
+| Owned: Codex Computer Use failure patterns → troubleshooting.html | https://bsky.app/profile/iganapolsky.bsky.social/post/3mpu6pynefv2f |
+
+Repeatable skill created: `.claude/skills/bsky-post/` + `scripts/bsky-post.mjs` (creds from env only).
+
+**Reddit lesson (r/ClaudeAI modbot removal, 2026-07-04):** ThumbGate showcase post removed for
+UTM-tracked link (f), promotional framing (e), missing "built with Claude Code" statement (b).
+Rule created: `.claude/skills/reddit-showcase-compliance/SKILL.md` — 7-item checklist mandatory
+before any Reddit showcase post. Compliant resubmission drafted at
+`outbound/reddit-claudeai-thumbgate-resubmission.md` (needs 1 truthful EDIT-ME fill, 1h cooldown).
+
+**Channel matrix from cloud sessions (tested 2026-07-04):** Bluesky API ✅ | LinkedIn ❌ network-blocked |
+X ❌ network-blocked | Reddit ❌ network-blocked | Dev.to ❌ network-blocked (browser) | HN ❌ network-blocked |
+Medium ❌ 403. Blocked channels require either posting from CEO's machine (script:
+`post-everywhere-local.mjs` delivered 2026-07-04) or opening the environment network policy.
+Credentials do NOT overcome the network block — do not collect them for blocked channels.
+
+**Security note:** CEO pasted account passwords into chat this session (Bluesky, LinkedIn, HN).
+Advised rotation + app passwords. Passwords NOT persisted to any file or repo.
