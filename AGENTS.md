@@ -29,3 +29,11 @@ Include branch count before/after, merged PR list, and CI status proof.
 - The `revenue-cycle.yml` cron is allowed to commit only **data and stub-content** (reports, drafts, lead-log, revenue-state). It must never modify code in `scripts/`, `.github/workflows/`, or `*.html` without a human review path.
 - The `ralph-loop.mjs` discovery script must **never post** to any external repo. Drafts go to `outbound/drafts/<date>/` for human review; the script does not modify `lead-log.md`.
 - Outbound posts to other repos require human authorship — bot posts are templated by definition and the documented conversion rate on templated batches is 0/19.
+
+## Outbound Truth Guard
+- Never claim a file was created, committed, pushed, or posted unless the exact repo path, file path, commit SHA, and/or live URL has been verified with a command in the current session.
+- Before writing social copy that points to a public page, read the destination source or live HTML first. Do not invent counts, prices, commands, issue numbers, cache windows, flags, or diagnostics.
+- For the OpenClaw troubleshooting page, run the source verifier before publishing or handing off copy:
+  `python3 /Users/igorganapolsky/workspace/git/igor/IgorGanapolsky.github.io/scripts/verify-openclaw-troubleshooting-content.py`
+- Current truthful promise for that page: six real causes, exact local commands, free setup checklist, and one paid path: the $499 Agent Safety Diagnostic.
+- If a platform post is not live, say "copy-ready" or "queued", not "posted everywhere".
