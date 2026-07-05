@@ -1,158 +1,165 @@
-# Daily Drop — ready-to-post packet
+# Daily Drop — ready-to-post packet (v2, aligned to the real landing page)
 
-Link used everywhere: https://igorganapolsky.com/openclaw-mac-ai-workstation-setup/troubleshooting.html
-No placeholders. Every block below is final — hand to Claude-for-Chrome or paste directly.
+Link everywhere: https://igorganapolsky.com/openclaw-mac-ai-workstation-setup/troubleshooting.html
+Real offer on that page: **$499 Agent Safety Diagnostic** (review a Codex/Claude/Chrome/OpenClaw
+workflow before it can post, spend, delete, or ship). NOT $19 — earlier drafts were wrong.
 
-STATUS:
-- Bluesky ×3 — ALREADY LIVE (posted via API this session)
-- Everything below — needs to be posted from your browser / Claude-for-Chrome
+The page's SIX verified causes (use these exact ones — the link must pay off what the post promises):
+1. Plugin cache not pointed at the bundled plugin — `codex plugin marketplace add /Applications/Codex.app/Contents/Resources/plugins/openai-bundled`
+2. TCC tracks Screen Recording/Accessibility by BUNDLE ID — running a different bundle path than the approved one
+3. OpenRouter "fallback" inherits the primary's thresholds → retries the same broken route twice
+4. Apple Events -1743 — a tool launched from cmux/Warp inherits the PARENT's TCC posture, not Codex's
+5. Stale OAuth / multiple $CODEX_HOME — the runtime answering text isn't the one that owns the plugin
+6. OpenClaw TUI session reused across projects — inherits another project's compaction/plan/memory
 
-═══════════════════════════════════════════════════════════════
-## LINKEDIN  (1,621 chars — within 3,000 limit)
-═══════════════════════════════════════════════════════════════
-
-Computer Use on macOS keeps crashing — and most devs are fixing the wrong thing.
-
-I've been tracking openai/codex issue threads this week. 30 new Computer Use failures reported in 48 hours on macOS. All different symptoms. One shared root pattern.
-
-The most common response? Reinstall the app.
-
-The actual fix? Usually one of three things the reinstall never touches.
-
-1. ScreenCaptureKit entitlement not granted
-Run: codesign -dv --entitlements - /Applications/Codex.app
-If com.apple.security.automation.apple-events is missing, reinstalling won't help. Re-grant Screen Recording in System Settings → Privacy & Security.
-
-2. Marketplace plugin cache on a 24h regeneration cycle
-Install right before a cycle boundary and Computer Use may not be listed yet — no error shown. Fix: Settings → Extensions → Force Refresh.
-
-3. Intel Mac + macOS 12.x (the silent failure)
-A minos deployment target flag causes ScreenCaptureKit to fail silently on Monterey x86_64. Diagnostic: launch with --computer-use-debug.
-
-All 8 failure patterns documented with exact commands: https://igorganapolsky.com/openclaw-mac-ai-workstation-setup/troubleshooting.html
-
-Drop your chip (M-series vs Intel) + macOS version below. Building a compatibility matrix from real reports.
-
-#MacOS #AITools #DeveloperExperience #Codex #ComputerUse
+STATUS: Bluesky ×3 LIVE. Everything below posts from your browser / Claude-for-Chrome.
 
 ═══════════════════════════════════════════════════════════════
-## X / TWITTER  (5-tweet thread — each ≤280)
+## LINKEDIN
+═══════════════════════════════════════════════════════════════
+
+"Computer Use plugin unavailable" on macOS — and reinstalling never fixes it.
+
+I went through the openai/codex + OpenClaw issue threads this week. The same failures keep coming back, and almost none are the error the UI shows. Six real causes, in order of how often they actually break things:
+
+1. The plugin cache in your user directory isn't pointed at the bundled plugin. Reinstalling touches the app, not ~/.codex. Fix is one line: codex plugin marketplace add /Applications/Codex.app/Contents/Resources/plugins/openai-bundled
+
+2. Screen Recording + Accessibility both granted, still denied. macOS TCC tracks permission by bundle ID, not app name — run Codex from a different bundle path (DMG vs App Store vs re-signed helper) and the approval is attached to the wrong bundle.
+
+3. OpenRouter "fallback" inherits the primary model's thresholds, so it hits the same context limit and fails identically. It looks like it tried two providers. It tried one provider twice.
+
+4. Works in Zed's terminal, breaks from cmux/Warp — Apple Events error -1743. A child process inherits the PARENT app's automation permission, not Codex's.
+
+5. Stale OAuth / multiple $CODEX_HOME — the runtime answering your text isn't the one that owns the Computer Use plugin.
+
+6. OpenClaw TUI reuses a session pool keyed by terminal, not working directory — two project dirs share compaction state and memory.
+
+Full checklist with the exact diagnostic command for each: https://igorganapolsky.com/openclaw-mac-ai-workstation-setup/troubleshooting.html
+
+If you're shipping an agent that can post, spend, or delete on its own, that page also links a paid pre-flight review. What's your setup — Codex, Claude, or OpenClaw?
+
+#MacOS #AIAgents #Codex #ComputerUse #DeveloperTools
+
+═══════════════════════════════════════════════════════════════
+## X / TWITTER  (5 tweets, each ≤280)
 ═══════════════════════════════════════════════════════════════
 
 [1/5]
-Codex Computer Use broken on macOS? Tracked 30 fresh reports this week. All different symptoms, one root pattern.
+"Computer Use plugin unavailable" on macOS — and reinstalling never fixes it.
 
-Here's the 3-step diagnostic that skips the "reinstall" rabbit hole. 🧵
+Went through the codex + OpenClaw issue threads. Six real causes, almost none are the error the UI shows. 🧵
 
 [2/5]
-Most common symptom: plugin just doesn't appear. No error — it's simply absent.
+#1, most common: the plugin cache in your user dir isn't pointed at the bundled plugin. Reinstalling touches the app, not ~/.codex.
 
-Root cause 80% of the time: ScreenCaptureKit entitlement wasn't granted at install.
-
-Check: codesign -dv --entitlements - /Applications/Codex.app
-Look for: com.apple.security.automation.apple-events
+One line:
+codex plugin marketplace add /Applications/Codex.app/Contents/Resources/plugins/openai-bundled
 
 [3/5]
-If entitlements are fine → stale marketplace cache.
+#2: Screen Recording granted, still denied.
 
-Codex regenerates plugin listings on a ~24h cycle. Install at a boundary and Computer Use won't be listed yet. Zero indication anything is wrong.
-
-Fix: Settings → Extensions → Force Refresh. 30 seconds.
+macOS TCC tracks permission by BUNDLE ID, not app name. Run Codex from a different bundle path (DMG vs App Store vs re-signed helper) and the approval is attached to the wrong bundle. The running process has a different one.
 
 [4/5]
-Intel Mac + macOS 12.x? You're probably hitting the minos flag bug.
+#3: OpenRouter "fallback" inherits the primary's thresholds → same context limit, same failure. Looks like 2 providers; it's 1 provider twice.
 
-ScreenCaptureKit fails SILENTLY on Monterey x86_64 due to a deployment target mismatch.
-
-No crash dialog. No error. Computer Use just never starts.
-
-Debug: open -a Codex --args --computer-use-debug
+#4: works in Zed, breaks from cmux/Warp → Apple Events -1743. Child inherits the PARENT's automation permission, not Codex's.
 
 [5/5]
-Full breakdown of all 8 patterns with diagnostic commands:
+#5 stale OAuth / multiple $CODEX_HOME. #6 OpenClaw TUI reuses sessions by terminal, not dir.
+
+Exact command for each of the six:
 https://igorganapolsky.com/openclaw-mac-ai-workstation-setup/troubleshooting.html
 
-Chip + macOS version in replies if you're still stuck. Building a compatibility matrix from real reports.
-
-RT if this saved you a reinstall 🙏
+Shipping an agent that can post/spend/delete? Page links a pre-flight review.
 
 ═══════════════════════════════════════════════════════════════
 ## DEV.TO  (paste into Create Post; frontmatter sets title+tags)
 ═══════════════════════════════════════════════════════════════
 
 ---
-title: 8 Reasons Computer Use Fails on macOS (And None of Them Are Your Fault)
+title: Codex Computer Use "plugin unavailable" on macOS — the six real causes
 published: true
-tags: computeruse, macos, codex, debugging
+tags: macos, codex, aiagents, debugging
 ---
 
-If you've tried to enable Computer Use in Codex Desktop on macOS and hit a wall — a missing plugin, a crash loop, or an error code that returns zero useful search results — you're not alone. I tracked 30 new failure reports in 48 hours this week. Here's what's actually happening.
+If Computer Use won't start in Codex on macOS — "plugin unavailable," permissions that look granted but aren't, or an agent that works in one terminal and dies in another — the error the UI shows is almost never the real cause. Here are the six that actually break things, each with the command that confirms it.
 
-## Reinstalling doesn't fix most of these
+## 1. Plugin cache isn't pointed at the bundled plugin
 
-The root causes live in three places reinstall never touches: entitlements, the plugin marketplace cache, and macOS version-specific ScreenCaptureKit behavior.
-
-## 1. ScreenCaptureKit entitlement not granted
-
-**Symptom:** Computer Use is absent from the marketplace. Not "unavailable" — not listed at all.
+The bundled plugin exists in `/Applications/Codex.app/Contents/Resources/plugins/openai-bundled`, but your active Codex home isn't pointed at it. Reinstalling doesn't fix it — the cache lives in your user directory.
 
 ```bash
-codesign -dv --entitlements - /Applications/Codex.app
+codex mcp list
+codex plugin marketplace add /Applications/Codex.app/Contents/Resources/plugins/openai-bundled
+codex mcp list   # computer-use should now appear
 ```
 
-Look for `com.apple.security.automation.apple-events`. If missing, the ScreenCaptureKit stream can never initialize. Fix: System Settings → Privacy & Security → Screen Recording → enable Codex, then Settings → Extensions → Force Refresh.
+## 2. Permissions granted to the wrong bundle ID
 
-## 2. SCStreamErrorDomain -3811
-
-**Symptom:** plugin appears, Computer Use crashes immediately.
-
-Entitlement is present but stream creation fails — usually a concurrent process holding the SCStream handle. Quit Codex fully (Cmd+Q), relaunch, enable Computer Use before opening Loom / CleanMyMac / Zoom.
-
-## 3. Marketplace cache stale
-
-**Symptom:** was working, disappeared after an update. Codex regenerates its plugin index on a ~24h cycle; an update near a boundary leaves a stale listing. Fix: Settings → Extensions → Force Refresh.
-
-## 4. Intel Mac + macOS 12.x (minos flag)
-
-**Symptom:** nothing. No plugin, no error, no crash report. A `minos` deployment target flag causes silent ScreenCaptureKit init failure on Monterey x86_64.
+macOS TCC tracks Screen Recording and Accessibility by **bundle identifier**, not app name. Run Codex from a different bundle path (DMG copy vs App Store vs a differently-signed helper) and the approval is recorded for one bundle while the running process has another.
 
 ```bash
-open -a Codex --args --computer-use-debug
+ps aux | grep -i codex | grep -v grep
+codesign -dv --verbose=2 /Applications/Codex.app 2>&1 | grep -E "Identifier|TeamIdentifier"
+sqlite3 ~/Library/Application\ Support/com.apple.TCC/TCC.db \
+  "SELECT client, auth_value FROM access WHERE service IN ('kTCCServiceScreenCapture','kTCCServiceAccessibility');"
 ```
 
-Look for `SCStream initialization` in the first 5 seconds. If absent, you're in this bucket.
+A mismatch between the running bundle ID and the TCC-approved bundle ID is the cause. Remove the old copy, re-grant to the canonical bundle.
 
-## Patterns 5–8
+## 3. OpenRouter fallback silently re-runs the broken primary
 
-- Chrome bridge unavailable (node_repl missing) — Desktop 26.623.x
-- macOS updater blocking plugin delivery
-- Renderer crash loop — macOS 149.0.7827.197, resolved by full restart
-- Environments panel missing — toolbar regression in 26.623.81905
+Gateway fallback keeps the primary model's threshold values when it escalates, so the fallback hits the same context/compression limit and fails identically. It looks like two providers were tried; it was one provider, twice.
 
-## Compatibility matrix (WIP)
+```bash
+openclaw route show --last
+openclaw route show --agent computer-use   # look for "threshold_inherited_from_primary": true
+```
 
-| Chip | macOS | Status | Known issue |
-|------|-------|--------|-------------|
-| M-series | 14.x Sonoma | ✅ Works | Watch cache staleness |
-| M-series | 15.x Sequoia | ✅ Works | — |
-| Intel x86_64 | 12.x Monterey | ⚠️ Silent failure | minos flag |
-| Intel x86_64 | 13.x Ventura | 🟡 Mixed | Entitlement timing |
+Fix: separate threshold/context configs per route, or a dedicated computer-use agent variant.
 
-Full guide + all 8 patterns with commands: https://igorganapolsky.com/openclaw-mac-ai-workstation-setup/troubleshooting.html
+## 4. Apple Events -1743 from cmux / Warp
 
-Drop your setup in the comments — updating the matrix from real reports.
+Apple Events from a child process inherit the **parent's** TCC posture. A tool running inside cmux has cmux's permissions, not Codex's — producing AppleScript error -1743 with no other diagnostic.
+
+```bash
+ps -o ppid,command -p $$
+# Grant Automation to the actual parent (cmux/Warp/iTerm):
+# System Settings > Privacy & Security > Automation
+```
+
+## 5. Stale OAuth / multiple $CODEX_HOME
+
+If an old shell exported a different `$CODEX_HOME`, the runtime answering your text isn't the one that owns the Computer Use plugin.
+
+```bash
+printenv | grep -i codex
+ls -la ~/.codex ~/Library/Application\ Support/Codex 2>/dev/null
+```
+
+Pick one canonical `CODEX_HOME`, remove the others from your shell rc.
+
+## 6. OpenClaw TUI session reused across projects
+
+OpenClaw/otui reuse a session pool keyed by terminal, not working directory. Two project dirs share compaction state, plan, and memory.
+
+---
+
+Full checklist + the verified-working configuration: https://igorganapolsky.com/openclaw-mac-ai-workstation-setup/troubleshooting.html
+
+Which one bit you? Comparing notes to keep the list accurate.
 
 ═══════════════════════════════════════════════════════════════
-## HASHNODE  (same article as Dev.to — title + tags below, body identical)
+## HASHNODE  (same article as Dev.to)
 ═══════════════════════════════════════════════════════════════
 
-Title: 8 Reasons Computer Use Fails on macOS (And None of Them Are Your Fault)
+Title: Codex Computer Use "plugin unavailable" on macOS — the six real causes
 Tags: macos, debugging, ai, developer-tools
-Canonical URL (optional, set to Dev.to link after posting there to avoid SEO dup)
-Body: (use the Dev.to body above, minus the frontmatter block)
+Body: use the Dev.to body above, minus the frontmatter block.
 
 ═══════════════════════════════════════════════════════════════
-## MEDIUM  (reply to Mykola Kondratiuk — https://medium.com/p/12fe933fa3e5)
+## MEDIUM  (reply to Mykola — https://medium.com/p/12fe933fa3e5)  [unchanged — governance topic, no page dependency]
 ═══════════════════════════════════════════════════════════════
 
 Exactly — "tell it not to" is a request, not a control. The only layer where "no" is enforced is between the agent's decision and the syscall: a deny-by-default gate that checks every tool call against rules-as-code before it executes. Prompts are probabilistic; audit logs are too late.
@@ -162,30 +169,35 @@ With 10+ agents daily you've likely hit the nastier case: two agents individuall
 I build an open-source CLI doing exactly this interception (Claude/Codex/Gemini adapters) — happy to compare notes, the audit-export problem looks shared with your PM tooling.
 
 ═══════════════════════════════════════════════════════════════
-## THREADS  (462/500 chars)
+## THREADS  (under 500)
 ═══════════════════════════════════════════════════════════════
 
-Codex Computer Use broken on your Mac? 30 new reports in 48 hours this week.
+"Computer Use plugin unavailable" on macOS — reinstalling never fixes it.
 
-The most common "fix" — reinstalling — repairs none of them. The real causes:
+Six real causes, almost none are the error the UI shows:
 
-→ ScreenCaptureKit entitlement never granted (plugin silently absent)
-→ Plugin marketplace cache on a ~24h cycle (Force Refresh fixes it)
-→ Intel Mac + macOS 12: silent failure, no error at all
+→ plugin cache not pointed at the bundled plugin
+→ Screen Recording granted to the wrong bundle ID (TCC tracks by bundle, not name)
+→ OpenRouter fallback retries the same broken route twice
+→ Apple Events -1743 from cmux/Warp (child inherits parent's permission)
 
-All 8 patterns + commands:
+Exact command for each:
 igorganapolsky.com/openclaw-mac-ai-workstation-setup/troubleshooting.html
 
 ═══════════════════════════════════════════════════════════════
-## HACKER NEWS  (Show HN — title + url only)
+## HACKER NEWS  (Show HN)
 ═══════════════════════════════════════════════════════════════
 
-Title: Show HN: All 8 Codex Computer Use failure patterns on macOS, documented
+Title: Show HN: The six real causes of Codex Computer Use failing on macOS
 URL:   https://igorganapolsky.com/openclaw-mac-ai-workstation-setup/troubleshooting.html
 
 ═══════════════════════════════════════════════════════════════
-## BLUESKY  — ALREADY LIVE (no action needed)
+## BLUESKY — ALREADY LIVE
 ═══════════════════════════════════════════════════════════════
 - https://bsky.app/profile/iganapolsky.bsky.social/post/3mpu6p7i5lw2z
 - https://bsky.app/profile/iganapolsky.bsky.social/post/3mpu6pyibr32j  (reply to @vinkius-mcp-ai)
 - https://bsky.app/profile/iganapolsky.bsky.social/post/3mpu6pynefv2f
+
+NOTE: the two Bluesky owned posts used the older "ScreenCaptureKit entitlement / minos / 24h cache"
+framing, which does NOT match the six causes on the live page. Consider a follow-up Bluesky post
+with the corrected framing above, or leave them — they still drive to the correct URL.
