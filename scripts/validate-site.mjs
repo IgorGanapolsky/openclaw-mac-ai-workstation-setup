@@ -5,6 +5,7 @@ import { extname, join, normalize, relative, resolve } from "node:path";
 const root = resolve(new URL("..", import.meta.url).pathname);
 const allowedExternal = [
   "https://buy.stripe.com/",
+  "https://book.stripe.com/",
   "https://github.com/",
   "https://igorganapolsky.github.io/",
   "https://www.googletagmanager.com/",
